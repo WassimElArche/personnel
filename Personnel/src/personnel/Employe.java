@@ -17,9 +17,9 @@ public class Employe implements Serializable, Comparable<Employe>
 	private String nom, prenom, password, mail;
 	private Ligue ligue;
 	private GestionPersonnel gestionPersonnel;
-	private LocalDate date;
-	
-	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password , LocalDate date)
+	private LocalDate datedeb;
+	private LocalDate datefin;
+	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password , LocalDate datedeb , LocalDate datefin)
 	
 	{
 		this.gestionPersonnel = gestionPersonnel;
@@ -28,7 +28,8 @@ public class Employe implements Serializable, Comparable<Employe>
 		this.password = password;
 		this.mail = mail;
 		this.ligue = ligue;
-		this.date = date;
+		this.datedeb = datedeb;
+		this.datefin = datefin;
 	}
 	
 	/**
