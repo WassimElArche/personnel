@@ -10,26 +10,38 @@ import java.time.LocalDate;
  * Il est impossible d'instancier directement un employé, 
  * il faut passer la méthode {@link Ligue#addEmploye addEmploye}.
  */
-
+class ErreurDate extends Exception
+{
+	public String getMessage()
+	{
+		return "La datee de départ ne peut pas être avant la date d'arrivée.";
+	}
+} 
 public class Employe implements Serializable, Comparable<Employe>
 {
 	private static final long serialVersionUID = 4795721718037994734L;
 	private String nom, prenom, password, mail;
 	private Ligue ligue;
 	private GestionPersonnel gestionPersonnel;
-	private LocalDate datedeb;
-	private LocalDate datefin;
+	private LocalDate date_arrivee;
+	private LocalDate date_depart;
 	
-	public Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password)
-	
+	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate date_arrivee, LocalDate date_depart)
 	{
 		this.gestionPersonnel = gestionPersonnel;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.password = password;
 		this.mail = mail;
-		this.ligue = ligue;}
+		this.ligue = ligue;
+
+		if (date_depart.isBefore(date_arrivee)) {
+            throw new ErreurDate();
+        }
 		
+		this.date_arrivee = date_arrivee;
+		this.date_depart = date_depart;
+	}
 	
 	/**
 	 * Retourne vrai ssi l'employé est administrateur de la ligue 
@@ -114,6 +126,46 @@ public class Employe implements Serializable, Comparable<Employe>
 	{
 		this.mail = mail;
 	}
+	/**
+	 * Retourne la date d'arrivée de l'employé.
+	 * @return la date d'arrivée de l'employé.
+	 */
+	
+	public LocalDate getDate_arrivee()
+	{
+		return date_arrivee;
+	}
+	
+	/**
+	 * Retourne la date d'arrivée de l'employé.
+	 * @return la date d'arrivée de l'employé.
+	 */
+	
+	 public void setDate_arrivee(LocalDate date_arrivee)
+	 {
+		this.date_arrivee = date_arrivee;
+	 }
+
+	 /**
+	 * Retourne la date de départ de l'employé.
+	 * @return la date de départ de l'employé.
+	 */
+	
+	public LocalDate getDate_depart()
+	{
+		return date_depart;
+	}
+	
+	/**
+	 * Retourne la date de départ de l'employé.
+	 * @return la date de départ de l'employé.
+	 */
+	
+	 public void setDate_depart(LocalDate date_depart)
+	 {
+		this.date_depart = date_depart;
+	 }
+	
 
 	/**
 	 * Retourne vrai ssi le password passé en paramètre est bien celui
