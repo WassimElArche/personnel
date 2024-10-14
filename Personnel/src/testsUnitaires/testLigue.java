@@ -1,5 +1,4 @@
 package testsUnitaires;
-
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
@@ -85,4 +84,28 @@ class testLigue
 		Employe employe = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty"); 
 		assertEquals(employe, ligue.getEmployes().first());
 	}
+
+    @Test
+    public void testValidDates() {
+        assertDoesNotThrow(() -> new Employe(LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31)));
+    }
+
+    @Test
+    public void testInvalidDates() {
+        Exception exception = assertThrows(ErreurDate.class, () -> {
+            new Employe(LocalDate.of(2023, 12, 31), LocalDate.of(2023, 1, 1));
+        });
+        assertEquals("La date de départ ne peut pas être avant la date d'arrivée.", exception.getMessage());
+    }
+
+    @Test
+    public void testSetDateDepartInvalid() {
+        Employe employe = new Employe(LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31));
+        Exception exception = assertThrows(ErreurDate.class, () -> {
+            employe.setDateDepart(LocalDate.of(2022, 12, 31));
+        });
+        assertEquals("La date de départ ne peut pas être avant la date d'arrivée.", exception.getMessage());
+    }
+}
+
 }
