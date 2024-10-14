@@ -19,7 +19,8 @@ public class Employe implements Serializable, Comparable<Employe>
 	private GestionPersonnel gestionPersonnel;
 	private LocalDate datedeb;
 	private LocalDate datefin;
-	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password , LocalDate datedeb , LocalDate datefin)
+	
+	public Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password)
 	
 	{
 		this.gestionPersonnel = gestionPersonnel;
@@ -27,10 +28,8 @@ public class Employe implements Serializable, Comparable<Employe>
 		this.prenom = prenom;
 		this.password = password;
 		this.mail = mail;
-		this.ligue = ligue;
-		this.datedeb = datedeb;
-		this.datefin = datefin;
-	}
+		this.ligue = ligue;}
+		
 	
 	/**
 	 * Retourne vrai ssi l'employé est administrateur de la ligue 
