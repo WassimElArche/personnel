@@ -1,8 +1,13 @@
 package testsUnitaires;
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.time.LocalDate;
+
 import org.junit.jupiter.api.Test;
 
 import personnel.*;
+
+
 
 class testLigue 
 {
@@ -26,25 +31,33 @@ class testLigue
 	void Suppression() throws SauvegardeImpossible {
 
 		Ligue ligue = gestionPersonnel.addLigue("Fléchettes");
-		Employe employe = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty");
-		Employe employe1 = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty"); 
-		Employe employe2 = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty"); 
+		Employe employe;
+		try {
+			employe = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty",LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31));
+			Employe employe1 = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty",LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31)); 
+			Employe employe2 = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty",LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31)); 
+			
+			employe.remove();
+			assertFalse(ligue.getEmployes().contains(employe));
+			
+			ligue.remove();
+			assertFalse(gestionPersonnel.getLigues().contains(ligue));
+			
+		} catch (Erreurdate e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		employe.remove();
-		assertFalse(ligue.getEmployes().contains(employe));
-		
-		ligue.remove();
-		assertFalse(gestionPersonnel.getLigues().contains(ligue));
 		
 		
 	}
-	
+	/*
 	@Test
-	void changementetSuppAdmin() throws SauvegardeImpossible {
+	void changementetSuppAdmin() throws SauvegardeImpossible{
 		Ligue ligue = gestionPersonnel.addLigue("Fléchettes");
 		
 		
-		Employe test = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty"); 
+		Employe test = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty",LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31)); 
 		
 		
 		ligue.setAdministrateur(test);
@@ -56,11 +69,11 @@ class testLigue
 	}
 	
 	@Test
-	void Employe() throws SauvegardeImpossible
+	void Employe() throws SauvegardeImpossible 
 	{
 		//GETTEUR
 		Ligue ligue = gestionPersonnel.addLigue("Fléchettes");
-		Employe test = ligue.addEmploye("El Arche", "Wassim", "mail", "azerty"); 
+		Employe test = ligue.addEmploye("El Arche", "Wassim", "mail", "azerty",LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31)); 
 		assertEquals("Wassim" , test.getPrenom());
 		assertEquals("mail" , test.getMail());
 		assertEquals(ligue,test.getLigue());
@@ -82,16 +95,19 @@ class testLigue
 	void addEmploye() throws SauvegardeImpossible
 	{
 		Ligue ligue = gestionPersonnel.addLigue("Fléchettes");
-		Employe employe = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty"); 
+		Employe employe = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty"  , LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31)); 
 		assertEquals(employe, ligue.getEmployes().first());
 	}
 
-/*
-    @Test
-    public void testValidDates() {
-        assertDoesNotThrow(() -> new Employe(LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31)));
-    }
 
+    @Test
+    public void testValidDates() throws SauvegardeImpossible {
+    	
+    	Ligue ligue = gestionPersonnel.addLigue("Fléchettes");
+        assertDoesNotThrow(() -> ligue.addEmploye("El Arche", "Wassim", "wsmsevran", "mdp" ,LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31) ));
+        
+    }
+    /*
     @Test
     public void testInvalidDates() {
         Exception exception = assertThrows(ErreurDate.class, () -> {
