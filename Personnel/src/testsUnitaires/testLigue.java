@@ -62,13 +62,15 @@ class testLigue
 		try {
 			
 			
-			//MODIF ADMIN 
+			 
 			test = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty",LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31));
+			
+			
 			//teste personnel 
 			assertEquals(gestionPersonnel.getRoot() , ligue.getAdministrateur());
 			
 			
-			
+			//MODIF ADMIN
 			ligue.setAdministrateur(test);
 			assertEquals(test, ligue.getAdministrateur());
 			
