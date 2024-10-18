@@ -60,19 +60,26 @@ class testLigue
 		
 		Employe test;
 		try {
+			
+			
+			//MODIF ADMIN 
 			test = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty",LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31));
+			//teste personnel 
+			assertEquals(gestionPersonnel.getRoot() , ligue.getAdministrateur());
+			
+			
+			
 			ligue.setAdministrateur(test);
 			assertEquals(test, ligue.getAdministrateur());
 			
+			
+			//SUPP ADMIN 
 			test.remove();
-			
 			assertFalse(ligue.getEmployes().contains(test));
-			ligue.setAdministrateur(test);
-			assertEquals(test, ligue.getAdministrateur());
-			
-			test.remove();
-			
+		
+			//VERIFIE QUE ROOT EST BIEN ADMIN 
 			assertFalse(ligue.getEmployes().contains(test));
+			assertEquals(gestionPersonnel.getRoot() , ligue.getAdministrateur());
 			
 		} catch (Erreurdate e) {
 			// TODO Auto-generated catch block
