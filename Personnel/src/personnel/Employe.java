@@ -10,13 +10,7 @@ import java.time.LocalDate;
  * Il est impossible d'instancier directement un employé, 
  * il faut passer la méthode {@link Ligue#addEmploye addEmploye}.
  */
-class ErreurDate extends Exception
-{
-	public String getMessage()
-	{
-		return "La datee de départ ne peut pas être avant la date d'arrivée.";
-	}
-} 
+
 public class Employe implements Serializable, Comparable<Employe>
 {
 	private static final long serialVersionUID = 4795721718037994734L;
@@ -27,7 +21,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	private LocalDate date_depart;
 	
 	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate date_arrivee, LocalDate date_depart)
-	throws ErreurDate
+	throws Erreurdate
 	{
 		this.gestionPersonnel = gestionPersonnel;
 		this.nom = nom;
@@ -37,7 +31,7 @@ public class Employe implements Serializable, Comparable<Employe>
 		this.ligue = ligue;
 
 		if (date_depart.isBefore(date_arrivee)) {
-            throw new ErreurDate();
+            throw new Erreurdate();
         }
 		
 		this.date_arrivee = date_arrivee;

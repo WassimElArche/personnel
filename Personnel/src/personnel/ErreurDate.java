@@ -1,5 +1,5 @@
 package personnel;
 
-public class Erreurdate {
+public class Erreurdate  extends Exception {
 
 }
