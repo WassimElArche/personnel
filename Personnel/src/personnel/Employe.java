@@ -27,6 +27,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	private LocalDate date_depart;
 	
 	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate date_arrivee, LocalDate date_depart)
+	throws ErreurDate
 	{
 		this.gestionPersonnel = gestionPersonnel;
 		this.nom = nom;
@@ -43,6 +44,19 @@ public class Employe implements Serializable, Comparable<Employe>
 		this.date_depart = date_depart;
 	}
 	
+	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password)
+			
+			{
+				this.gestionPersonnel = gestionPersonnel;
+				this.nom = nom;
+				this.prenom = prenom;
+				this.password = password;
+				this.mail = mail;
+				this.ligue = ligue;
+
+				
+			}
+
 	/**
 	 * Retourne vrai ssi l'employé est administrateur de la ligue 
 	 * passée en paramètre.
