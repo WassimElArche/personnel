@@ -149,18 +149,34 @@ class testLigue
     @Test
     public void testSetDateDepartInvalid() throws SauvegardeImpossible {
     	Ligue ligue = gestionPersonnel.addLigue("Fléchettes");
-        Employe employe;
-		try {
-			employe = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty"  , LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31));
-			Exception exception = assertThrows(Erreurdate.class, () -> {employe.setDate_depart(LocalDate.of(2022, 12, 31));
-	        });
-	        
-		} catch (Erreurdate e) {
-			// TODO Auto-generated catch block
-			assertEquals("La date de départ ne peut pas être avant la date d'arrivée.", e.getMessage());
+        	try {
+        		
+			Employe employe = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty"  , LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31));
+			Exception exception = assertThrows(Erreurdate.class, () -> {
+	            employe.setDate_depart(LocalDate.of(2020, 12, 31));
+			});
+			
+        	}catch (Erreurdate e ) {
+        		assertEquals("La date de départ ne peut pas être avant la date d'arrivée.", e.getMessage());
+        	}
 		}
+    @Test
+    public void testSetDateArriveInvalid() throws SauvegardeImpossible {
+    	Ligue ligue = gestionPersonnel.addLigue("Fléchettes");
+        	try {
+        		
+			Employe employe = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty"  , LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31));
+			Exception exception = assertThrows(Erreurdate.class, () -> {
+	            employe.setDate_arrivee(LocalDate.of(2024, 12, 31));
+			});
+			
+        	}catch (Erreurdate e ) {
+        		assertEquals("La date de départ ne peut pas être avant la date d'arrivée.", e.getMessage());
+        	}
+		}
+    
         
-    }
+    
 }
 
 

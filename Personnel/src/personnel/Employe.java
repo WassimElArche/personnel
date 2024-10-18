@@ -150,12 +150,18 @@ public class Employe implements Serializable, Comparable<Employe>
 	 */
 	
 	 public void setDate_arrivee(LocalDate date_arrivee)
+	 throws Erreurdate
 	 {
-		this.date_arrivee = date_arrivee;
+		 if (date_depart.isBefore(date_arrivee)) {
+	            throw new Erreurdate();
+	        }
+		 else {
+		 
+		this.date_arrivee = date_arrivee;}
 	 }
 
 	 /**
-	 * Retourne la date de départ de l'employé.
+	 * Modifie la date de départ de l'employé.
 	 * @return la date de départ de l'employé.
 	 */
 	
@@ -165,13 +171,18 @@ public class Employe implements Serializable, Comparable<Employe>
 	}
 	
 	/**
-	 * Retourne la date de départ de l'employé.
+	 * Modifie la date de départ de l'employé.
 	 * @return la date de départ de l'employé.
 	 */
 	
 	 public void setDate_depart(LocalDate date_depart)
+	 throws Erreurdate
 	 {
-		this.date_depart = date_depart;
+		 if (date_depart.isBefore(date_arrivee)) {
+	            throw new Erreurdate();
+	        }
+		 else {
+		this.date_depart = date_depart;}
 	 }
 	
 
