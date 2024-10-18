@@ -129,7 +129,7 @@ class testLigue
 
 
     @Test
-    public void testValidDates() throws SauvegardeImpossible {
+     void testValidDates() throws SauvegardeImpossible {
     	
     	Ligue ligue = gestionPersonnel.addLigue("Fléchettes");
         assertDoesNotThrow(() -> ligue.addEmploye("El Arche", "Wassim", "wsmsevran", "mdp" ,LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31) ));
@@ -138,7 +138,7 @@ class testLigue
     
     
     @Test
-    public void testInvalidDates() throws SauvegardeImpossible{
+     void testInvalidDates() throws SauvegardeImpossible{
     	Ligue ligue = gestionPersonnel.addLigue("Fléchettes");
         Exception exception = assertThrows(Erreurdate.class, () -> {
             ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty"  , LocalDate.of(2023, 12, 31), LocalDate.of(2023, 1, 1));
@@ -147,7 +147,7 @@ class testLigue
     }
 
     @Test
-    public void testSetDateDepartInvalid() throws SauvegardeImpossible {
+     void testSetDateDepartInvalid() throws SauvegardeImpossible {
     	Ligue ligue = gestionPersonnel.addLigue("Fléchettes");
         	try {
         		
@@ -161,7 +161,7 @@ class testLigue
         	}
 		}
     @Test
-    public void testSetDateArriveInvalid() throws SauvegardeImpossible {
+     void testSetDateArriveInvalid() throws SauvegardeImpossible {
     	Ligue ligue = gestionPersonnel.addLigue("Fléchettes");
         	try {
         		
@@ -175,8 +175,26 @@ class testLigue
         	}
 		}
     
+    
+    @Test
+    void testGetteurDate() throws SauvegardeImpossible{
+    	Ligue ligue = gestionPersonnel.addLigue("Fléchettes");
+    
+    	try {
+    		
+			
+    		Employe employe = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty"  , LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31));
+			assertEquals( employe.getDate_arrivee() , LocalDate.of(2023, 1, 1)); 
+			assertEquals( employe.getDate_depart() , LocalDate.of(2023, 12, 31)); 
+    		
+    		
+    	}catch (Erreurdate e ) {
+    		
+    }
+    
         
     
 }
+    }
 
 
