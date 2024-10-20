@@ -17,10 +17,10 @@ public class Employe implements Serializable, Comparable<Employe>
 	private String nom, prenom, password, mail;
 	private Ligue ligue;
 	private GestionPersonnel gestionPersonnel;
-	private LocalDate date_arrivee;
-	private LocalDate date_depart;
+	private LocalDate dateArrive;
+	private LocalDate dateDepart;
 	
-	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate date_arrivee, LocalDate date_depart)
+	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrive, LocalDate dateDepart)
 	throws Erreurdate
 	{
 		this.gestionPersonnel = gestionPersonnel;
@@ -30,12 +30,12 @@ public class Employe implements Serializable, Comparable<Employe>
 		this.mail = mail;
 		this.ligue = ligue;
 
-		if (date_depart.isBefore(date_arrivee)) {
+		if (dateArrive == null || dateDepart.isBefore(dateArrive) ) {
             throw new Erreurdate();
         }
 		
-		this.date_arrivee = date_arrivee;
-		this.date_depart = date_depart;
+		this.dateArrive = dateArrive;
+		this.dateDepart = dateDepart;
 	}
 	
 	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password)
@@ -102,7 +102,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	
 	public String getPrenom()
 	{
-		return prenom;
+		return this.prenom;
 	}
 	
 	/**
@@ -122,7 +122,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	
 	public String getMail()
 	{
-		return mail;
+		return this.mail;
 	}
 	
 	/**
@@ -141,7 +141,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	
 	public LocalDate getDate_arrivee()
 	{
-		return date_arrivee;
+		return this.dateArrive;
 	}
 	
 	/**
@@ -149,15 +149,15 @@ public class Employe implements Serializable, Comparable<Employe>
 	 * @return la date d'arrivée de l'employé.
 	 */
 	
-	 public void setDate_arrivee(LocalDate date_arrivee)
+	 public void setDate_arrivee(LocalDate dateArrive)
 	 throws Erreurdate
 	 {
-		 if (date_depart.isBefore(date_arrivee)) {
+		 if (dateArrive == null  || dateDepart.isBefore(dateArrive)) {
 	            throw new Erreurdate();
 	        }
 		 else {
 		 
-		this.date_arrivee = date_arrivee;}
+		this.dateArrive = dateArrive;}
 	 }
 
 	 /**
@@ -167,7 +167,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	
 	public LocalDate getDate_depart()
 	{
-		return date_depart;
+		return this.dateDepart;
 	}
 	
 	/**
@@ -175,14 +175,14 @@ public class Employe implements Serializable, Comparable<Employe>
 	 * @return la date de départ de l'employé.
 	 */
 	
-	 public void setDate_depart(LocalDate date_depart)
+	 public void setDate_depart(LocalDate dateDepart)
 	 throws Erreurdate
 	 {
-		 if (date_depart.isBefore(date_arrivee)) {
+		 if (dateDepart.isBefore(dateArrive)) {
 	            throw new Erreurdate();
 	        }
 		 else {
-		this.date_depart = date_depart;}
+		this.dateDepart = dateDepart;}
 	 }
 	
 
@@ -216,7 +216,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	
 	public Ligue getLigue()
 	{
-		return ligue;
+		return this.ligue;
 	}
 
 	/**
