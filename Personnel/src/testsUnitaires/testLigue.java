@@ -147,7 +147,7 @@ class testLigue
     }
     
     @Test
-    void testDateNull() throws SauvegardeImpossible{
+    void testDateNArriveNull() throws SauvegardeImpossible{
     	Ligue ligue = gestionPersonnel.addLigue("Football");
     	
     
@@ -159,7 +159,7 @@ class testLigue
      }
     
     @Test
-    void setDateNull()throws SauvegardeImpossible, Erreurdate {
+    void setDateArriveNull()throws SauvegardeImpossible, Erreurdate {
     	Ligue ligue = gestionPersonnel.addLigue("Football");
     
     		Employe employe = ligue.addEmploye("a", "a", "a", "a", LocalDate.of(2023, 12, 31), LocalDate.of(2024, 1, 1));
