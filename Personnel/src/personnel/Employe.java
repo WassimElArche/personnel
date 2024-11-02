@@ -139,7 +139,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	 * @return la date d'arrivée de l'employé.
 	 */
 	
-	public LocalDate getDate_arrivee()
+	public LocalDate getDateArrivee()
 	{
 		return this.dateArrive;
 	}
@@ -149,7 +149,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	 * @return la date d'arrivée de l'employé.
 	 */
 	
-	 public void setDate_arrivee(LocalDate dateArrive)
+	 public void setDateArrivee(LocalDate dateArrive)
 	 throws Erreurdate
 	 {
 		 if (dateArrive == null  || dateDepart.isBefore(dateArrive)) {
@@ -165,7 +165,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	 * @return la date de départ de l'employé.
 	 */
 	
-	public LocalDate getDate_depart()
+	public LocalDate getDateDepart()
 	{
 		return this.dateDepart;
 	}
@@ -175,7 +175,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	 * @return la date de départ de l'employé.
 	 */
 	
-	 public void setDate_depart(LocalDate dateDepart)
+	 public void setDateDepart(LocalDate dateDepart)
 	 throws Erreurdate
 	 {
 		 if (dateDepart.isBefore(dateArrive)) {
