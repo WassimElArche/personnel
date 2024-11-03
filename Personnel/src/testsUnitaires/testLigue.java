@@ -146,6 +146,9 @@ class testLigue
           
     }
     
+    
+    // TEST POUR LES DATES NULL , SEULEMENT LA DATE DE DEPART PEUT ETRE NULL
+    
     @Test
     void testDateArriveNull() throws SauvegardeImpossible{
     	Ligue ligue = gestionPersonnel.addLigue("Football");
