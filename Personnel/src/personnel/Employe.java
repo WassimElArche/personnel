@@ -30,7 +30,7 @@ public class Employe implements Serializable, Comparable<Employe>
 		this.mail = mail;
 		this.ligue = ligue;
 
-		if (dateArrive == null || dateDepart.isBefore(dateArrive) ) {
+		if (dateArrive == null || dateDepart == null || dateDepart.isBefore(dateArrive) ) {
             throw new Erreurdate();
         }
 		
@@ -178,7 +178,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	 public void setDateDepart(LocalDate dateDepart)
 	 throws Erreurdate
 	 {
-		 if (dateDepart.isBefore(dateArrive)) {
+		 if (dateDepart == null || dateDepart.isBefore(dateArrive)) {
 	            throw new Erreurdate();
 	        }
 		 else {
