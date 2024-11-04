@@ -163,7 +163,7 @@ class testLigue
     
     
     @Test
-    void testDateDepartNull() throws SauvegardeImpossible{
+    void testDateDepartNull() throws SauvegardeImpossible , Erreurdate{
     	Ligue ligue = gestionPersonnel.addLigue("Football");
     	
     
