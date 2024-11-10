@@ -102,13 +102,7 @@ public class Ligue implements Serializable, Comparable<Ligue>
 		return employes;
 	}
 	
-	public ArrayList<Employe> getEmployee(){
-		
-		ArrayList<Employe> test = new ArrayList<Employe>();
-		
 	
-		return test;
-	}
 	
 	
 
