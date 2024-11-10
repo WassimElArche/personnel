@@ -2,9 +2,12 @@ package personnel;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.SortedSet;
 import java.util.TreeSet;
+
+import commandLineMenus.List;
 
 /**
  * Représente une ligue. Chaque ligue est reliée à une liste
@@ -96,8 +99,18 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	
 	public SortedSet<Employe> getEmployes()
 	{
-		return Collections.unmodifiableSortedSet(employes);
+		return employes;
 	}
+	
+	public ArrayList<Employe> getEmployee(){
+		
+		ArrayList<Employe> test = new ArrayList<Employe>();
+		
+	
+		return test;
+	}
+	
+	
 
 	/**
 	 * Ajoute un employé dans la ligue. Cette méthode 
