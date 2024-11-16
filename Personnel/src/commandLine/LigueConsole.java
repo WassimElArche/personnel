@@ -162,8 +162,8 @@ public class LigueConsole
 
 	private Option modifierEmploye(final Ligue ligue, Employe employe)
 	{
-		EmployeConsole test = new EmployeConsole();
-		return test.editerEmploye(employe);
+		
+		return employeConsole.editerEmploye(employe);
 	}
 	
 	private Option supprimer(Ligue ligue)
