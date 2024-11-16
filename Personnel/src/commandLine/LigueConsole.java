@@ -3,6 +3,8 @@ package commandLine;
 import static commandLineMenus.rendering.examples.util.InOut.getString;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 import commandLineMenus.List;
@@ -102,6 +104,8 @@ public class LigueConsole
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+					catch (DateTimeParseException s) {
+						System.out.println("Veuillez fournir le bon format de date");			}
 				}
 		);
 	}
