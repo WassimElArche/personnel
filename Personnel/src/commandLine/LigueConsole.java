@@ -130,31 +130,31 @@ public class LigueConsole
 	
 	
 	
-	private Menu suppOuEditEmploye(Ligue ligue , Employe employe) {
-		Menu menu = new Menu("Editer Employe "+ employe.getNom() + " " + employe.getPrenom() + " de chez " + ligue.getNom());
-		menu.add(modifierEmploye(ligue , employe));
-		menu.add(supprimerEmploye(ligue, employe));
-		menu.add(changerAdmin(ligue , employe));
+	private Menu suppOuEditEmploye(Employe employe) {
+		Menu menu = new Menu("Editer Employe "+ employe.getNom() + " " + employe.getPrenom() + " de chez " + employe.getLigue().getNom());
+		menu.add(modifierEmploye(employe));
+		menu.add(supprimerEmploye(employe));
+		menu.add(changerAdmin(employe));
 		menu.addBack("q");
 		return menu;
 		
 	}
 	
-	private Option changerAdmin(Ligue ligue , Employe employe) {
-		return new Option("Le nommer administrateur" , "n" , () -> oui(ligue , employe));
+	private Option changerAdmin(Employe employe) {
+		return new Option("Le nommer administrateur" , "n" , () -> oui(employe));
 	}
 	
 	
-	private Option supprimerEmploye(final Ligue ligue, Employe employe)
+	private Option supprimerEmploye(Employe employe)
 	{
-		return new Option("Supprimer l'employer" , "s" , () -> suppEmployeRetour(ligue , employe));
+		return new Option("Supprimer l'employer" , "s" , () -> suppEmployeRetour( employe));
 			
 	}
 	
-	private void suppEmployeRetour(Ligue ligue , Employe employe) 
+	private void suppEmployeRetour(Employe employe) 
 	
 	{
-		ligue.getEmployes().remove(employe);
+		employe.getLigue().getEmployes().remove(employe);
 	
 	}
 	
@@ -172,8 +172,8 @@ public class LigueConsole
 	}
 	
 	
-	private void oui(Ligue ligue , Employe employe ) {	
-		ligue.setAdministrateur(employe);
+	private void oui(Employe employe ) {	
+		employe.getLigue().setAdministrateur(employe);
 		System.out.println("Administrateur bien modifié");
 		
 	}
@@ -187,7 +187,7 @@ public class LigueConsole
 	
 	
 
-	private Option modifierEmploye(final Ligue ligue, Employe employe)
+	private Option modifierEmploye(Employe employe)
 	{
 		
 		return employeConsole.editerEmploye(employe);
