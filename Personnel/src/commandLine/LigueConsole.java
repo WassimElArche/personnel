@@ -74,7 +74,6 @@ public class LigueConsole
 		Menu menu = new Menu("Editer " + ligue.getNom());
 		menu.add(afficher(ligue));
 		menu.add(gererEmployes(ligue));
-		menu.add(changerAdministrateur(ligue));
 		menu.add(changerNom(ligue));
 		menu.add(supprimer(ligue));
 		menu.addBack("q");
@@ -102,7 +101,7 @@ public class LigueConsole
 							);
 					} catch (Erreurdate e) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
+						System.out.println("Les dates ne sont pas coherente : La date de depart ne peut pas etre avant la date d'arriver ");
 					}
 					catch (DateTimeParseException s) {
 						System.out.println("Veuillez fournir le bon format de date");			}
@@ -135,9 +134,14 @@ public class LigueConsole
 		Menu menu = new Menu("Editer Employe "+ employe.getNom() + " " + employe.getPrenom() + " de chez " + ligue.getNom());
 		menu.add(modifierEmploye(ligue , employe));
 		menu.add(supprimerEmploye(ligue, employe));
+		menu.add(changerAdmin(ligue , employe));
 		menu.addBack("q");
 		return menu;
 		
+	}
+	
+	private Option changerAdmin(Ligue ligue , Employe employe) {
+		return new Option("Le nommer administrateur" , "n" , () -> oui(ligue , employe));
 	}
 	
 	
@@ -158,12 +162,6 @@ public class LigueConsole
 		return new List<Employe>("Selectionner un employer" , "s" , () -> new ArrayList(ligue.getEmployes()) , (nb) -> suppOuEditEmploye(ligue , nb));
 	}
 	
-	
-	private List<Employe> changerAdministrateur(final Ligue ligue)
-	{
-		return new List<Employe>("Changer l'admin" , "c" , () -> new ArrayList(ligue.getEmployes()) , (nb) -> setAdministrateur(ligue , nb));
-	}
-		
 
 	private Menu setAdministrateur(Ligue ligue , Employe employe) {
 		Menu menu = new Menu("Rendre Admin "+ employe.getNom() + " " + employe.getPrenom());
