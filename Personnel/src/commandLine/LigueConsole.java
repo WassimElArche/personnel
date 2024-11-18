@@ -167,26 +167,21 @@ public class LigueConsole
 
 	private Menu setAdministrateur(Ligue ligue , Employe employe) {
 		Menu menu = new Menu("Rendre Admin "+ employe.getNom() + " " + employe.getPrenom());
-		menu.add(new Option("Etes vous sur de le rendre admin" , "o" , () -> oui(ligue,employe , menu)));
+		menu.add(new Option("Etes vous sur de le rendre admin" , "o" , () -> oui(ligue,employe)));
+		menu.setAutoBack(true);
 		menu.addBack("q");
 		return menu;
 	}
 	
 	
-	private void oui(Ligue ligue , Employe employe , Menu menu) {	
+	private void oui(Ligue ligue , Employe employe ) {	
 		ligue.setAdministrateur(employe);
 		System.out.println("Administrateur bien modifié");
-		menu.quit();
-		
-		
-		
-		
-
 		
 	}
 
 	
-	public Option afficherAdmin(Ligue ligue) {
+	private Option afficherAdmin(Ligue ligue) {
 		return new Option("Afficher l'administrateur" , "a" , () -> System.out.println(ligue.getAdministrateur()));
 	}
 	
