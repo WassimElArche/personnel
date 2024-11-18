@@ -101,7 +101,7 @@ public class LigueConsole
 							);
 					} catch (Erreurdate e) {
 						// TODO Auto-generated catch block
-						System.out.println("Les dates ne sont pas coherente : La date de depart ne peut pas etre avant la date d'arriver ");
+						System.out.println("Les dates ne sont pas coherente : La date de depart ne peut pas etre avant la date d'arriver ou elles ne peuvent pas etre null ");
 					}
 					catch (DateTimeParseException s) {
 						System.out.println("Veuillez fournir le bon format de date");			}
