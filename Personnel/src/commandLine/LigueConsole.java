@@ -120,6 +120,10 @@ public class LigueConsole
 	}
 	
 	
+	
+
+	
+	
 	private List<Ligue> selectionnerLigue()
 	{
 		return new List<Ligue>("Sélectionner une ligue", "e", 
@@ -137,12 +141,18 @@ public class LigueConsole
 		menu.add(changerAdmin(employe));
 		menu.addBack("q");
 		return menu;
-		
+	}
+	
+	private void setAdmin(Employe employe ) {	
+		employe.getLigue().setAdministrateur(employe);
+		System.out.println("Administrateur bien modifié");
 	}
 	
 	private Option changerAdmin(Employe employe) {
-		return new Option("Le nommer administrateur" , "n" , () -> oui(employe));
+		return new Option("Le nommer administrateur" , "n" , () -> setAdmin(employe));
 	}
+	
+	
 	
 	
 	private Option supprimerEmploye(Employe employe)
@@ -159,24 +169,11 @@ public class LigueConsole
 	}
 	
 	private List<Employe> selectEmploye(Ligue ligue){
-		return new List<Employe>("Selectionner un employer" , "s" , () -> new ArrayList(ligue.getEmployes()) , (nb) -> suppOuEditEmploye(ligue , nb));
+		return new List<Employe>("Selectionner un employer" , "s" , () -> new ArrayList(ligue.getEmployes()) , (nb) -> suppOuEditEmploye(nb));
 	}
 	
 
-	private Menu setAdministrateur(Ligue ligue , Employe employe) {
-		Menu menu = new Menu("Rendre Admin "+ employe.getNom() + " " + employe.getPrenom());
-		menu.add(new Option("Etes vous sur de le rendre admin" , "o" , () -> oui(employe)));
-		menu.setAutoBack(true);
-		menu.addBack("q");
-		return menu;
-	}
 	
-	
-	private void oui(Employe employe ) {	
-		employe.getLigue().setAdministrateur(employe);
-		System.out.println("Administrateur bien modifié");
-		
-	}
 
 	
 	private Option afficherAdmin(Ligue ligue) {
