@@ -165,7 +165,7 @@ public class LigueConsole
 
 	private Menu setAdministrateur(Ligue ligue , Employe employe) {
 		Menu menu = new Menu("Rendre Admin "+ employe.getNom() + " " + employe.getPrenom());
-		menu.add(new Option("Etes vous sur de le rendre admin" , "o" , () -> oui(ligue,employe)));
+		menu.add(new Option("Etes vous sur de le rendre admin" , "o" , () -> oui(employe)));
 		menu.setAutoBack(true);
 		menu.addBack("q");
 		return menu;
