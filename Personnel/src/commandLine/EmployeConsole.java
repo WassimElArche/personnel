@@ -32,6 +32,7 @@ public class EmployeConsole
 			menu.add(changerMail(employe));
 			menu.add(changerPassword(employe));
 			menu.add(changerDateArriver(employe));
+			menu.add(changerDateDepart(employe));
 			menu.addBack("q");
 		
 			return menu;
