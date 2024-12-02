@@ -14,13 +14,15 @@ import java.time.LocalDate;
 public class Employe implements Serializable, Comparable<Employe>
 {
     private static final long serialVersionUID = 4795721718037994734L;
+    private int id;
     private String nom, prenom, password, mail;
     private Ligue ligue;
     private GestionPersonnel gestionPersonnel;
+    private boolean admin;
     private LocalDate dateArrive;
     private LocalDate dateDepart;
 
-    Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrive, LocalDate dateDepart)
+    Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrive, LocalDate dateDepart , int id , boolean admin)
             throws Erreurdate
     {
         this.gestionPersonnel = gestionPersonnel;
@@ -36,6 +38,14 @@ public class Employe implements Serializable, Comparable<Employe>
 
         this.dateArrive = dateArrive;
         this.dateDepart = dateDepart;
+        this.id = id;
+        this.admin = admin;
+        
+    }
+    
+    
+    public boolean getAdmin() {
+    	return this.admin;
     }
 
     Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password)
@@ -235,6 +245,10 @@ public class Employe implements Serializable, Comparable<Employe>
         }
         else
             throw new ImpossibleDeSupprimerRoot();
+    }
+    
+    public String getPassword() {
+    	return this.password;
     }
 
     @Override

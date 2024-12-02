@@ -20,7 +20,7 @@ import commandLineMenus.List;
 public class Ligue implements Serializable, Comparable<Ligue>
 {
 	private static final long serialVersionUID = 1L;
-	private int id = -1;
+	private int id;
 	private String nom;
 	private SortedSet<Employe> employes;
 	private Employe administrateur;
@@ -54,6 +54,10 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	public String getNom()
 	{
 		return nom;
+	}
+	
+	public int getId() {
+		return this.id;
 	}
 
 	/**
@@ -116,11 +120,11 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	 * @return l'employé créé. 
 	 */
 
-	public Employe addEmploye(String nom, String prenom, String mail, String password , LocalDate dateArv , LocalDate Datedeb)
+	public Employe addEmploye(String nom, String prenom, String mail, String password , LocalDate dateArv , LocalDate Datedeb, boolean admin)
 	throws Erreurdate
 	{
 	
-		Employe employe = new Employe(this.gestionPersonnel, this, nom, prenom, mail, password , dateArv , Datedeb);
+		Employe employe = new Employe(this.gestionPersonnel, this, nom, prenom, mail, password , dateArv , Datedeb , id, admin );
 		employes.add(employe);
 		return employe;
 	}

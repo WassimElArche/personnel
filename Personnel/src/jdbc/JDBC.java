@@ -6,12 +6,13 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 
 import personnel.*;
 
 public class JDBC implements Passerelle 
 {
-	Connection connection;
+	 Connection connection;
 
 	public JDBC()
 	{
@@ -67,6 +68,35 @@ public class JDBC implements Passerelle
 			throw new SauvegardeImpossible(e);
 		}
 	}
+	
+	public int insert(Employe employe)throws SauvegardeImpossible{
+		try 
+		{
+			PreparedStatement instruction;
+			instruction = connection.prepareStatement("insert into employe (prenomEmploye , nomEmploye , mail , passwd , datearv , datedepart , Admin , ID_Ligue ) values(?)", Statement.RETURN_GENERATED_KEYS);
+			instruction.setString(1, employe.getPrenom());	
+			instruction.setString(2, employe.getNom());
+			instruction.setString(3, employe.getMail());
+			instruction.setString(4, employe.getPassword());
+			instruction.setString(5,employe.getDateArrivee().toString());
+			instruction.setString(6, employe.getDateDepart().toString());
+			instruction.setBoolean(7, employe.getAdmin());
+			instruction.setInt(8, employe.getLigue().getId());
+			
+			instruction.executeUpdate();
+			ResultSet id = instruction.getGeneratedKeys();
+			id.next();
+			return id.getInt(1);
+		} 
+		catch (SQLException exception) 
+		{
+			exception.printStackTrace();
+			throw new SauvegardeImpossible(exception);
+		}		
+		
+	}
+	
+	
 	
 	@Override
 	public int insert(Ligue ligue) throws SauvegardeImpossible 
