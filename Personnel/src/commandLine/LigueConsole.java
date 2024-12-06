@@ -97,7 +97,7 @@ public class LigueConsole
 						ligue.addEmploye(getString("nom : "), 
 							getString("prenom : "), getString("mail : "), 
 							getString("password : ") , LocalDate.parse(getString("date arrive : ")) , 
-							LocalDate.parse(getString("date depart : ")) 
+							LocalDate.parse(getString("date depart : ")) , Boolean.parseBoolean(getString("Est admin ? 1 ou 0")) 
 							);
 					} catch (Erreurdate e) {
 						// TODO Auto-generated catch block
