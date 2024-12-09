@@ -105,7 +105,11 @@ public class LigueConsole
 					}
 					catch (DateTimeParseException s) {
 						System.out.println("Veuillez fournir le bon format de date");			}
+					catch(SauvegardeImpossible e) {
+						System.out.println("Erreur de sauvegarde");
+					}
 				}
+				
 		);
 	}
 	

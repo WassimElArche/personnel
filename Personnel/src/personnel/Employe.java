@@ -22,8 +22,8 @@ public class Employe implements Serializable, Comparable<Employe>
     private LocalDate dateArrive;
     private LocalDate dateDepart;
 
-    Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrive, LocalDate dateDepart , int id , boolean admin)
-            throws Erreurdate
+    Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrive, LocalDate dateDepart , boolean admin)
+            throws Erreurdate  , SauvegardeImpossible
     {
         this.gestionPersonnel = gestionPersonnel;
         this.nom = nom;
@@ -38,7 +38,7 @@ public class Employe implements Serializable, Comparable<Employe>
 
         this.dateArrive = dateArrive;
         this.dateDepart = dateDepart;
-        this.id = id;
+        this.id = gestionPersonnel.insert(this);
         this.admin = admin;
         
     }

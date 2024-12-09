@@ -121,10 +121,10 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	 */
 
 	public Employe addEmploye(String nom, String prenom, String mail, String password , LocalDate dateArv , LocalDate Datedeb, boolean admin)
-	throws Erreurdate
+	throws Erreurdate , SauvegardeImpossible
 	{
 	
-		Employe employe = new Employe(this.gestionPersonnel, this, nom, prenom, mail, password , dateArv , Datedeb , id, admin );
+		Employe employe = new Employe(this.gestionPersonnel, this, nom, prenom, mail, password , dateArv , Datedeb, admin );
 		employes.add(employe);
 		return employe;
 	}
