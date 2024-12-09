@@ -43,12 +43,18 @@ public class Employe implements Serializable, Comparable<Employe>
         
     }
     
+    Employe(GestionPersonnel gestionPersonnel , String nom , String password) throws SauvegardeImpossible{
+    	this.nom = nom;
+    	this.password = password;
+    	this.id = gestionPersonnel.insert(this);
+    }
+    
     
     public boolean getAdmin() {
     	return this.admin;
     }
 
-    Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password)
+    Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password) throws SauvegardeImpossible
 
     {
         this.gestionPersonnel = gestionPersonnel;
@@ -57,6 +63,7 @@ public class Employe implements Serializable, Comparable<Employe>
         this.password = password;
         this.mail = mail;
         this.ligue = ligue;
+        this.id = gestionPersonnel.insert(this);
 
 
     }
