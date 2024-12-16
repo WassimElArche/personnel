@@ -34,9 +34,9 @@ class testLigue
         Ligue ligue = gestionPersonnel.addLigue("Fléchettes");
         Employe employe;
 
-        employe = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty",LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31));
-        Employe employe1 = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty",LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31));
-        Employe employe2 = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty",LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31));
+        employe = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty",LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31) , true);
+        Employe employe1 = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty",LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31) , false);
+        Employe employe2 = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty",LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31) , false );
 
         employe.remove();
         assertFalse(ligue.getEmployes().contains(employe));
@@ -56,7 +56,7 @@ class testLigue
 
         Employe test;
 
-        test = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty",LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31));
+        test = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty",LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31) , false);
 
 
 //teste personnel
@@ -88,7 +88,7 @@ class testLigue
 //GETTEUR
 
         Ligue ligue = gestionPersonnel.addLigue("Fléchettes");
-        Employe test = ligue.addEmploye("El Arche", "Wassim", "mail", "azerty",LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31));
+        Employe test = ligue.addEmploye("El Arche", "Wassim", "mail", "azerty",LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31) , false);
         assertEquals("Wassim" , test.getPrenom());
         assertEquals("mail" , test.getMail());
         assertEquals(ligue,test.getLigue());
@@ -118,7 +118,7 @@ class testLigue
 
         Ligue ligue = gestionPersonnel.addLigue("Fléchettes");
         Employe employe;
-        employe = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty"  , LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31));
+        employe = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty"  , LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31) , false);
         assertEquals(employe, ligue.getEmployes().first());
     }
 
@@ -129,7 +129,7 @@ class testLigue
     void testValidDates() throws SauvegardeImpossible {
 
         Ligue ligue = gestionPersonnel.addLigue("Fléchettes");
-        assertDoesNotThrow(() -> ligue.addEmploye("El Arche", "Wassim", "wsmsevran", "mdp" ,LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31) ));
+        assertDoesNotThrow(() -> ligue.addEmploye("El Arche", "Wassim", "wsmsevran", "mdp" ,LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31), false ));
 
     }
 
@@ -138,7 +138,7 @@ class testLigue
     void testInvalidDates() throws SauvegardeImpossible{
         Ligue ligue = gestionPersonnel.addLigue("Fléchettes");
         Exception exception = assertThrows(Erreurdate.class, () -> {
-            ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty"  , LocalDate.of(2023, 12, 31), LocalDate.of(2023, 1, 1));
+            ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty"  , LocalDate.of(2023, 12, 31), LocalDate.of(2023, 1, 1) , false);
         });
         assertEquals("La date de départ ne peut pas être avant la date d'arrivée.", exception.getMessage());
 
@@ -155,7 +155,7 @@ class testLigue
 
 
         Exception exception1 = assertThrows(Erreurdate.class, () -> {
-            ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty"  , null , LocalDate.of(2023, 1, 1));
+            ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty"  , null , LocalDate.of(2023, 1, 1) , false);
         });
         assertEquals("La date de départ ne peut pas être avant la date d'arrivée.", exception1.getMessage());
 
@@ -168,7 +168,7 @@ class testLigue
 
 
         Exception exception1 = assertThrows(Erreurdate.class, () -> {
-            ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty"  ,  LocalDate.of(2023, 1, 1) , null);
+            ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty"  ,  LocalDate.of(2023, 1, 1) , null , false);
         });
         assertEquals("La date de départ ne peut pas être avant la date d'arrivée.", exception1.getMessage());
 
@@ -179,7 +179,7 @@ class testLigue
     void setDateArriveNull()throws SauvegardeImpossible, Erreurdate {
         Ligue ligue = gestionPersonnel.addLigue("Football");
 
-        Employe employe = ligue.addEmploye("a", "a", "a", "a", LocalDate.of(2023, 12, 31), LocalDate.of(2024, 1, 1));
+        Employe employe = ligue.addEmploye("a", "a", "a", "a", LocalDate.of(2023, 12, 31), LocalDate.of(2024, 1, 1) , false);
         Exception exception1 = assertThrows(Erreurdate.class, () -> {
             employe.setDateArrivee(null);
         });
@@ -190,7 +190,7 @@ class testLigue
     void setDateDepartNull()throws SauvegardeImpossible, Erreurdate {
         Ligue ligue = gestionPersonnel.addLigue("Football");
 
-        Employe employe = ligue.addEmploye("a", "a", "a", "a", LocalDate.of(2023, 12, 31), LocalDate.of(2024, 1, 1));
+        Employe employe = ligue.addEmploye("a", "a", "a", "a", LocalDate.of(2023, 12, 31), LocalDate.of(2024, 1, 1) , false);
         Exception exception1 = assertThrows(Erreurdate.class, () -> {
             employe.setDateDepart(null);
         });
@@ -206,7 +206,7 @@ class testLigue
         Ligue ligue = gestionPersonnel.addLigue("Fléchettes");
 
 
-        Employe employe = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty"  , LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31));
+        Employe employe = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty"  , LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31) , false);
 
         Exception exception = assertThrows(Erreurdate.class , () -> employe.setDateDepart(LocalDate.of(2022, 1, 1)));
         assertEquals("La date de départ ne peut pas être avant la date d'arrivée." , exception.getMessage());
@@ -222,7 +222,7 @@ class testLigue
         Ligue ligue = gestionPersonnel.addLigue("Fléchettes");
 
 
-        Employe employe = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty"  , LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31));
+        Employe employe = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty"  , LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31) , false);
         Exception erreur = assertThrows(Erreurdate.class, () -> employe.setDateArrivee(LocalDate.of(2024, 12, 2)));
         assertEquals("La date de départ ne peut pas être avant la date d'arrivée." , erreur.getMessage());
 
@@ -236,7 +236,7 @@ class testLigue
         Ligue ligue = gestionPersonnel.addLigue("Fléchettes");
 
 
-        Employe employe = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty"  , LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31));
+        Employe employe = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty"  , LocalDate.of(2023, 1, 1), LocalDate.of(2023, 12, 31) , false);
         assertEquals( employe.getDateArrivee() , LocalDate.of(2023, 1, 1));
         assertEquals( employe.getDateDepart() , LocalDate.of(2023, 12, 31));
 

@@ -23,7 +23,7 @@ public class Employe implements Serializable, Comparable<Employe>
     private LocalDate dateDepart;
 
     Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrive, LocalDate dateDepart , boolean admin)
-            throws Erreurdate  , SauvegardeImpossible
+            throws Erreurdate 
     {
         this.gestionPersonnel = gestionPersonnel;
         this.nom = nom;
@@ -38,15 +38,15 @@ public class Employe implements Serializable, Comparable<Employe>
 
         this.dateArrive = dateArrive;
         this.dateDepart = dateDepart;
-        this.id = gestionPersonnel.insert(this);
+        //this.id = gestionPersonnel.insert(this);
         this.admin = admin;
         
     }
     
-    Employe(GestionPersonnel gestionPersonnel , String nom , String password) throws SauvegardeImpossible{
+    Employe(GestionPersonnel gestionPersonnel , String nom , String password) {
     	this.nom = nom;
     	this.password = password;
-    	this.id = gestionPersonnel.insert(this);
+    	//this.id = gestionPersonnel.insert(this);
     }
     
     
@@ -54,7 +54,7 @@ public class Employe implements Serializable, Comparable<Employe>
     	return this.admin;
     }
 
-    Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password) throws SauvegardeImpossible
+    Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password) 
 
     {
         this.gestionPersonnel = gestionPersonnel;
@@ -63,7 +63,7 @@ public class Employe implements Serializable, Comparable<Employe>
         this.password = password;
         this.mail = mail;
         this.ligue = ligue;
-        this.id = gestionPersonnel.insert(this);
+        //this.id = gestionPersonnel.insert(this);
 
 
     }

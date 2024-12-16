@@ -23,7 +23,7 @@ public class GestionPersonnel implements Serializable
 	private SortedSet<Ligue> ligues;
 	private Employe root = new Employe(this, null, "root", "", "", "toor");
 	public final static int SERIALIZATION = 1, JDBC = 2, 
-			TYPE_PASSERELLE = JDBC;  
+			TYPE_PASSERELLE = SERIALIZATION;  
 	private static Passerelle passerelle = TYPE_PASSERELLE == JDBC ? new jdbc.JDBC() : new serialisation.Serialization();	
 	
 	/**
@@ -100,9 +100,9 @@ public class GestionPersonnel implements Serializable
 		ligues.remove(ligue);
 	}
 	
-	int addRoot() throws SauvegardeImpossible {
+	/*int addRoot() throws SauvegardeImpossible {
 		return passerelle.insert(root);
-	}
+	}*/
 	
 	int insert(Ligue ligue) throws SauvegardeImpossible
 	{
@@ -110,11 +110,11 @@ public class GestionPersonnel implements Serializable
 	}
 	
 	
-	
+	/*
 	int insert(Employe employe) throws SauvegardeImpossible{
 		return passerelle.insert(employe);
 	}
-
+*/
 	/**
 	 * Retourne le root (super-utilisateur).
 	 * @return le root.
