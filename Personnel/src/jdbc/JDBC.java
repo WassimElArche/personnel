@@ -32,7 +32,7 @@ public class JDBC implements Passerelle
 	}
 	
 	@Override
-	public GestionPersonnel getGestionPersonnel() 
+	public GestionPersonnel getGestionPersonnel() throws SauvegardeImpossible
 	{
 		GestionPersonnel gestionPersonnel = new GestionPersonnel();
 		try 
@@ -40,14 +40,18 @@ public class JDBC implements Passerelle
 			String requete = "select * from ligue";
 			Statement instruction = connection.createStatement();
 			ResultSet ligues = instruction.executeQuery(requete);
-			while (ligues.next())
-				gestionPersonnel.addLigue(ligues.getInt(1), ligues.getString(2));
+			while (ligues.next()) {
+				gestionPersonnel.addLigue(ligues.getInt(1), ligues.getString(2));}
+			return gestionPersonnel;
 		}
 		catch (SQLException e)
 		{
 			System.out.println(e);
 		}
 		return gestionPersonnel;
+		
+	
+		
 	}
 
 	@Override
@@ -72,6 +76,33 @@ public class JDBC implements Passerelle
 	public int insert(Employe employe)throws SauvegardeImpossible{
 		try 
 		{
+			PreparedStatement instruction1;
+			instruction1 = connection.prepareStatement("select * from employe where id_employe = 1");
+			ResultSet t = instruction1.executeQuery();
+			
+			
+			
+			if(employe.getLigue() == null && t == null ) {
+				PreparedStatement instruction;
+				instruction = connection.prepareStatement("insert into employe (ID_Employe , prenomEmploye , nomEmploye , mail , passwd , datearv , datedepart , Admin ) values(?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+				instruction.setString(2, null);	
+				instruction.setString(3, employe.getNom());
+				instruction.setString(4, null);
+				instruction.setString(5, employe.getPassword());
+				instruction.setString(6,null);
+				instruction.setString(7, null);
+				instruction.setBoolean(8, true);
+				instruction.setInt(1, 1);
+				instruction.executeUpdate();
+				ResultSet id = instruction.getGeneratedKeys();
+				id.next();
+				
+				return id.getInt(1);
+				
+			}
+			
+			else if (employe.getLigue() != null){
+			
 			PreparedStatement instruction;
 			instruction = connection.prepareStatement("insert into employe (prenomEmploye , nomEmploye , mail , passwd , datearv , datedepart , Admin , ID_Ligue ) values(?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
 			instruction.setString(1, employe.getPrenom());	
@@ -87,7 +118,8 @@ public class JDBC implements Passerelle
 			id.next();
 			
 			
-			return id.getInt(1);
+			return id.getInt(1);}
+			return 0;
 			
 		} 
 		catch (SQLException exception) 

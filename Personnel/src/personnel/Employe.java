@@ -22,8 +22,8 @@ public class Employe implements Serializable, Comparable<Employe>
     private LocalDate dateArrive;
     private LocalDate dateDepart;
 
-    Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrive, LocalDate dateDepart , boolean admin)
-            throws Erreurdate 
+    Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrive, LocalDate dateDepart , boolean admin )
+            throws Erreurdate, SauvegardeImpossible 
     {
         this.gestionPersonnel = gestionPersonnel;
         this.nom = nom;
@@ -38,17 +38,32 @@ public class Employe implements Serializable, Comparable<Employe>
 
         this.dateArrive = dateArrive;
         this.dateDepart = dateDepart;
-        //this.id = gestionPersonnel.insert(this);
+        this.id = gestionPersonnel.insert(this);
         this.admin = admin;
         
     }
     
-    Employe(GestionPersonnel gestionPersonnel , String nom , String password) {
+    Employe(GestionPersonnel gestion , String nom , String password) throws SauvegardeImpossible{
+    	this.gestionPersonnel = gestion;
     	this.nom = nom;
     	this.password = password;
-    	//this.id = gestionPersonnel.insert(this);
+    	this.id = gestion.insert(this);
     }
     
+    
+  
+    
+    
+    /*
+	 * 
+	 * Ligue(GestionPersonnel gestionPersonnel, String nom) 
+	 * throws SauvegardeImpossible
+	 
+	{
+		this(gestionPersonnel, -1, nom);
+		this.id = gestionPersonnel.insert(this); 
+	}
+	*/
     
     public boolean getAdmin() {
     	return this.admin;
