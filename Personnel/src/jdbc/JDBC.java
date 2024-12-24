@@ -226,6 +226,43 @@ public class JDBC implements Passerelle
 	}
 	
 	
+	public int update(Employe employe) throws SauvegardeImpossible {
+		try 
+		{
+			String dateArv = null;
+			String dateDepart = null;
+			
+			if(employe.getLigue() != null) {
+				dateArv = employe.getDateArrivee().toString();
+				dateDepart = employe.getDateDepart().toString();
+				
+			}
+			
+			
+			PreparedStatement instruction;
+			instruction = connection.prepareStatement( "update employe set prenomEmploye = (?) , nomEmploye  = (?),  mail  = (?) ,passwd  = (?), datearv  = (?) ,datedepart  = (?) WHERE ID_Employe = (?)", Statement.RETURN_GENERATED_KEYS);
+			instruction.setString(1, employe.getPrenom());
+			instruction.setString(2, employe.getNom());
+			instruction.setString(3, employe.getMail());
+			instruction.setString(4, employe.getPassword());
+			instruction.setString(5, dateArv);
+			instruction.setString(6, dateDepart );
+			instruction.setInt(7, employe.getID());
+			instruction.executeUpdate();
+
+			ResultSet id = instruction.getGeneratedKeys();
+			if(id.next())
+			return id.getInt(1);
+			return 0;
+		} 
+		catch (SQLException exception) 
+		{
+			exception.printStackTrace();
+			throw new SauvegardeImpossible(exception);
+		}	
+	}
+	
+	
 	
 	
 	@Override

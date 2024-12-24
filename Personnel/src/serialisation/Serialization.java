@@ -63,4 +63,8 @@ public class Serialization implements personnel.Passerelle
 		// TODO Auto-generated method stub
 		return -1;
 	}
+	public int update(Employe employe) throws SauvegardeImpossible {
+		// TODO Auto-generated method stub
+		return -1;
+	}
 }

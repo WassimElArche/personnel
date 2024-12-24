@@ -39,7 +39,7 @@ public class Employe implements Serializable, Comparable<Employe>
 
         this.dateArrive = dateArrive;
         this.dateDepart = dateDepart;
-        gestionPersonnel.insert(this);
+        this.id = gestionPersonnel.insert(this);
         this.admin = admin;
         
     }
@@ -55,7 +55,7 @@ public class Employe implements Serializable, Comparable<Employe>
     
     
     
-    Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrive, LocalDate dateDepart , boolean admin , int id ) throws Erreurdate
+    Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrive, LocalDate dateDepart , boolean admin , int id ) throws Erreurdate, SauvegardeImpossible
 	{
     	 this.gestionPersonnel = gestionPersonnel;
          this.nom = nom;
@@ -70,7 +70,7 @@ public class Employe implements Serializable, Comparable<Employe>
 
          this.dateArrive = dateArrive;
          this.dateDepart = dateDepart;
-         this.id = id;
+         this.id = gestionPersonnel.insert(this);
          this.admin = admin;
 	}
     
@@ -96,6 +96,8 @@ public class Employe implements Serializable, Comparable<Employe>
 
     }
 
+    
+    //Pr root
     public Employe(GestionPersonnel gestionPersonnel, String nom, String password, int id) throws SauvegardeImpossible {
     	
 		this.gestionPersonnel = gestionPersonnel;
@@ -106,6 +108,10 @@ public class Employe implements Serializable, Comparable<Employe>
 		gestionPersonnel.insert(this);
 	}
 
+    public int getID() {
+    	return this.id;
+    }
+    
 	/**
      * Retourne vrai ssi l'employé est administrateur de la ligue
      * passée en paramètre.
@@ -143,11 +149,13 @@ public class Employe implements Serializable, Comparable<Employe>
     /**
      * Change le nom de l'employé.
      * @param nom le nouveau nom.
+     * @throws SauvegardeImpossible 
      */
 
-    public void setNom(String nom)
+    public void setNom(String nom) throws SauvegardeImpossible
     {
         this.nom = nom;
+        gestionPersonnel.update(this);
     }
 
     /**
@@ -163,11 +171,13 @@ public class Employe implements Serializable, Comparable<Employe>
     /**
      * Change le prénom de l'employé.
      * @param prenom le nouveau prénom de l'employé.
+     * @throws SauvegardeImpossible 
      */
 
-    public void setPrenom(String prenom)
+    public void setPrenom(String prenom) throws SauvegardeImpossible
     {
         this.prenom = prenom;
+        gestionPersonnel.update(this);
     }
 
     /**
@@ -183,11 +193,13 @@ public class Employe implements Serializable, Comparable<Employe>
     /**
      * Change le mail de l'employé.
      * @param mail le nouveau mail de l'employé.
+     * @throws SauvegardeImpossible 
      */
 
-    public void setMail(String mail)
+    public void setMail(String mail) throws SauvegardeImpossible
     {
         this.mail = mail;
+        gestionPersonnel.update(this);
     }
     /**
      * Retourne la date d'arrivée de l'employé.
@@ -202,10 +214,11 @@ public class Employe implements Serializable, Comparable<Employe>
     /**
      * Retourne la date d'arrivée de l'employé.
      * @return la date d'arrivée de l'employé.
+     * @throws SauvegardeImpossible 
      */
 
     public void setDateArrivee(LocalDate dateArrive)
-            throws Erreurdate
+            throws Erreurdate, SauvegardeImpossible
     {
         if (dateArrive == null  || dateDepart.isBefore(dateArrive)) {
             throw new Erreurdate();
@@ -213,6 +226,7 @@ public class Employe implements Serializable, Comparable<Employe>
         else {
 
             this.dateArrive = dateArrive;}
+        gestionPersonnel.update(this);
     }
 
     /**
@@ -228,16 +242,18 @@ public class Employe implements Serializable, Comparable<Employe>
     /**
      * Modifie la date de départ de l'employé.
      * @return la date de départ de l'employé.
+     * @throws SauvegardeImpossible 
      */
 
     public void setDateDepart(LocalDate dateDepart)
-            throws Erreurdate
+            throws Erreurdate, SauvegardeImpossible
     {
         if (dateDepart == null || dateDepart.isBefore(dateArrive)) {
             throw new Erreurdate();
         }
         else {
             this.dateDepart = dateDepart;}
+        gestionPersonnel.update(this);
     }
 
 
@@ -257,11 +273,13 @@ public class Employe implements Serializable, Comparable<Employe>
     /**
      * Change le password de l'employé.
      * @param password le nouveau password de l'employé.
+     * @throws SauvegardeImpossible 
      */
 
-    public void setPassword(String password)
+    public void setPassword(String password) throws SauvegardeImpossible
     {
         this.password= password;
+        gestionPersonnel.update(this);
     }
 
     /**
