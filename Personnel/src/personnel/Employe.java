@@ -2,6 +2,7 @@ package personnel;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.TreeSet;
 
 /**
  * Employé d'une ligue hébergée par la M2L. Certains peuvent
@@ -38,12 +39,12 @@ public class Employe implements Serializable, Comparable<Employe>
 
         this.dateArrive = dateArrive;
         this.dateDepart = dateDepart;
-        this.id = gestionPersonnel.insert(this);
+        gestionPersonnel.insert(this);
         this.admin = admin;
         
     }
     
-    Employe(GestionPersonnel gestion , String nom , String password) throws SauvegardeImpossible{
+    public Employe(GestionPersonnel gestion , String nom , String password) throws SauvegardeImpossible{
     	this.gestionPersonnel = gestion;
     	this.nom = nom;
     	this.password = password;
@@ -51,19 +52,31 @@ public class Employe implements Serializable, Comparable<Employe>
     }
     
     
-  
     
     
-    /*
-	 * 
-	 * Ligue(GestionPersonnel gestionPersonnel, String nom) 
-	 * throws SauvegardeImpossible
-	 
+    
+    Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrive, LocalDate dateDepart , boolean admin , int id ) throws Erreurdate
 	{
-		this(gestionPersonnel, -1, nom);
-		this.id = gestionPersonnel.insert(this); 
+    	 this.gestionPersonnel = gestionPersonnel;
+         this.nom = nom;
+         this.prenom = prenom;
+         this.password = password;
+         this.mail = mail;
+         this.ligue = ligue;
+
+         if (dateArrive == null || dateDepart == null || dateDepart.isBefore(dateArrive) ) {
+             throw new Erreurdate();
+         }
+
+         this.dateArrive = dateArrive;
+         this.dateDepart = dateDepart;
+         this.id = id;
+         this.admin = admin;
 	}
-	*/
+    
+    
+    
+    
     
     public boolean getAdmin() {
     	return this.admin;
@@ -83,7 +96,16 @@ public class Employe implements Serializable, Comparable<Employe>
 
     }
 
-    /**
+    public Employe(GestionPersonnel gestionPersonnel, String nom, String password, int id) {
+    	
+		this.gestionPersonnel = gestionPersonnel;
+		this.nom = nom;
+		this.password = password;
+		this.id = id;
+		this.ligue = null;
+	}
+
+	/**
      * Retourne vrai ssi l'employé est administrateur de la ligue
      * passée en paramètre.
      * @return vrai ssi l'employé est administrateur de la ligue

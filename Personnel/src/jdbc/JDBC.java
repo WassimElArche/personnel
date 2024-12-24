@@ -37,12 +37,33 @@ public class JDBC implements Passerelle
 		GestionPersonnel gestionPersonnel = new GestionPersonnel();
 		try 
 		{
+			
+			
+			PreparedStatement instruction1;
+			instruction1 = connection.prepareStatement("select id_employe , nomEmploye , passwd from employe where id_ligue is null");
+			ResultSet resultat = instruction1.executeQuery();
+			
+			//for( int i = 0 ; i<=3 ; i++){System.out.println(resultat.getString(i));}
+			
+			
+			if(resultat != null && resultat.next()) {
+			gestionPersonnel.addRoot(gestionPersonnel, resultat.getString(2), resultat.getString(3), resultat.getInt(1));
+			//System.out.println("Debug");
+			}
+			else {
+				gestionPersonnel.addRoot();
+				//System.out.println("test debug");
+			}
+			
+		
+			
+			
+			
 			String requete = "select * from ligue";
 			Statement instruction = connection.createStatement();
 			ResultSet ligues = instruction.executeQuery(requete);
 			while (ligues.next()) {
 				gestionPersonnel.addLigue(ligues.getInt(1), ligues.getString(2));}
-			return gestionPersonnel;
 		}
 		catch (SQLException e)
 		{
@@ -74,15 +95,19 @@ public class JDBC implements Passerelle
 	}
 	
 	public int insert(Employe employe)throws SauvegardeImpossible{
+		
+
 		try 
 		{
 			PreparedStatement instruction1;
 			instruction1 = connection.prepareStatement("select * from employe where id_employe = 1");
 			ResultSet t = instruction1.executeQuery();
 			
+
 			
-			
-			if(employe.getLigue() == null && t == null ) {
+			if(employe.getLigue() == null && !t.next()) {
+				
+				
 				PreparedStatement instruction;
 				instruction = connection.prepareStatement("insert into employe (ID_Employe , prenomEmploye , nomEmploye , mail , passwd , datearv , datedepart , Admin ) values(?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
 				instruction.setString(2, null);	
