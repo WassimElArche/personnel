@@ -139,6 +139,10 @@ public class GestionPersonnel implements Serializable
 		return passerelle.insert(ligue);
 	}
 	
+	int update(Ligue ligue) throws SauvegardeImpossible {
+		return passerelle.update(ligue);
+	}
+	
 	
 	
 	int insert(Employe employe) throws SauvegardeImpossible{

@@ -211,11 +211,12 @@ public class JDBC implements Passerelle
 			PreparedStatement instruction;
 			instruction = connection.prepareStatement("update ligue set nomLigue = (?) WHERE ID_Ligue = (?)", Statement.RETURN_GENERATED_KEYS);
 			instruction.setString(1, ligue.getNom());
-			instruction.setInt(1, ligue.getId());
+			instruction.setInt(2, ligue.getId());
 			instruction.executeUpdate();
 			ResultSet id = instruction.getGeneratedKeys();
-			id.next();
+			if(id.next())
 			return id.getInt(1);
+			return 0;
 		} 
 		catch (SQLException exception) 
 		{
