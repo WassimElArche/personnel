@@ -44,6 +44,10 @@ public class Employe implements Serializable, Comparable<Employe>
         
     }
     
+    
+    
+    
+    
     public Employe(GestionPersonnel gestion , String nom , String password) throws SauvegardeImpossible{
     	this.gestionPersonnel = gestion;
     	this.nom = nom;
@@ -70,7 +74,7 @@ public class Employe implements Serializable, Comparable<Employe>
 
          this.dateArrive = dateArrive;
          this.dateDepart = dateDepart;
-         this.id = gestionPersonnel.insert(this);
+         this.id = id;
          this.admin = admin;
 	}
     

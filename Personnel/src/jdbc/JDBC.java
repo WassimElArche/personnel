@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.SortedSet;
 
 import personnel.*;
 
@@ -51,8 +52,6 @@ public class JDBC implements Passerelle
 			//System.out.println("Debug");
 			}
 			
-		
-			
 			
 			
 			String requete = "select * from ligue";
@@ -60,10 +59,40 @@ public class JDBC implements Passerelle
 			ResultSet ligues = instruction.executeQuery(requete);
 			while (ligues.next()) {
 				gestionPersonnel.addLigue(ligues.getInt(1), ligues.getString(2));}
+
+			
+			
+			
+			
+			SortedSet<Ligue> liguees = gestionPersonnel.getLigues();
+			
+			String requetee = "select * from employe";
+			Statement instruction2 = connection.createStatement();
+			ResultSet employes = instruction2.executeQuery(requetee);
+			
+			while(employes.next()) {
+				for (Ligue ligue : liguees) {
+					
+					if(ligue.getId() == employes.getInt("ID_Ligue")) {
+						ligue.addEmploye(employes.getString("nomEmploye"), employes.getString("prenomEmploye"), employes.getString("mail"), employes.getString("passwd"), LocalDate.parse(employes.getString("datearv")), LocalDate.parse(employes.getString("datedepart")), employes.getBoolean("admin") , employes.getInt("ID_Employe"));
+					}
+				}
+				
+			
+			}
+			
 		}
+		
+		
+		
+		
+		
 		catch (SQLException e)
 		{
 			System.out.println(e);
+		} catch (Erreurdate e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return gestionPersonnel;
 		

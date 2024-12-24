@@ -131,6 +131,15 @@ public class Ligue implements Serializable, Comparable<Ligue>
 		return employe;
 	}
 	
+	public Employe addEmploye(String nom, String prenom, String mail, String password , LocalDate dateArv , LocalDate Datedeb, boolean admin , int id)
+			throws Erreurdate , SauvegardeImpossible
+			{
+			
+				Employe employe = new Employe(this.gestionPersonnel, this, nom, prenom, mail, password , dateArv , Datedeb, admin , id);
+				employes.add(employe);
+				return employe;
+			}
+	
 	void remove(Employe employe)
 	{
 		employes.remove(employe);
@@ -158,4 +167,6 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	{
 		return nom;
 	}
+
+
 }
