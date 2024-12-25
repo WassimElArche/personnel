@@ -71,4 +71,8 @@ public class Serialization implements personnel.Passerelle
 	public void delete(Employe employe) {
 		
 	}
+	
+	public void delete(Ligue ligue) {
+		
+	}
 }

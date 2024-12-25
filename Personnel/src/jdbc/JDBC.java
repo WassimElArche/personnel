@@ -295,8 +295,7 @@ public class JDBC implements Passerelle
 	public void delete(Employe employe) throws SauvegardeImpossible {
 		try 
 		{
-			System.out.println(employe.getNom());
-			System.out.println("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK");
+			
 			PreparedStatement instruction;
 			instruction = connection.prepareStatement( "delete from employe where id_employe = (?)", Statement.RETURN_GENERATED_KEYS);
 			instruction.setInt(1, employe.getID());
@@ -308,6 +307,31 @@ public class JDBC implements Passerelle
 			exception.printStackTrace();
 			throw new SauvegardeImpossible(exception);
 		}	
+	}
+	
+	
+	public void delete(Ligue ligue) throws SauvegardeImpossible {
+		
+		try 
+		{
+			PreparedStatement instruction;
+			instruction = connection.prepareStatement( "delete from employe where id_ligue = (?)", Statement.RETURN_GENERATED_KEYS);
+			instruction.setInt(1, ligue.getId());
+			instruction.executeUpdate();
+			
+			PreparedStatement instruction1;
+			instruction1 = connection.prepareStatement( "delete from ligue where id_ligue = (?)", Statement.RETURN_GENERATED_KEYS);
+			instruction1.setInt(1, ligue.getId());
+			instruction1.executeUpdate();
+			
+			
+		} 
+		catch (SQLException exception) 
+		{
+			exception.printStackTrace();
+			throw new SauvegardeImpossible(exception);
+		}	
+		
 	}
 	
 	
