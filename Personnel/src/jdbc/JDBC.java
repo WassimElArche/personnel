@@ -73,8 +73,13 @@ public class JDBC implements Passerelle
 				for (Ligue ligue : liguees) {
 					
 					if(ligue.getId() == employes.getInt("ID_Ligue")) {
-						ligue.addEmploye(employes.getString("nomEmploye"), employes.getString("prenomEmploye"), employes.getString("mail"), employes.getString("passwd"), LocalDate.parse(employes.getString("datearv")), LocalDate.parse(employes.getString("datedepart")), employes.getBoolean("admin") , employes.getInt("ID_Employe"));
+						Employe e = ligue.addEmploye(employes.getString("nomEmploye"), employes.getString("prenomEmploye"), employes.getString("mail"), employes.getString("passwd"), LocalDate.parse(employes.getString("datearv")), LocalDate.parse(employes.getString("datedepart")), employes.getBoolean("admin") , employes.getInt("ID_Employe"));
+						if (employes.getBoolean("Admin")) {
+							ligue.setAdministrateur(e);
+						}
+					
 					}
+					
 				}
 				
 			
@@ -149,6 +154,7 @@ public class JDBC implements Passerelle
 				instruction.setString(3,employe.getPassword());
 			}
 			else if (employe.getLigue() != null){
+			
 			
 			instruction.setString(1, employe.getPrenom());	
 			instruction.setString(2, employe.getNom());

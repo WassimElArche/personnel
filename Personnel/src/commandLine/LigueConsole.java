@@ -102,8 +102,9 @@ public class LigueConsole
 						ligue.addEmploye(getString("nom : "), 
 							getString("prenom : "), getString("mail : "), 
 							getString("password : ") , LocalDate.parse(getString("date arrive : ")) , 
-							LocalDate.parse(getString("date depart : ")) , Boolean.parseBoolean(getString("Est admin ? 1 ou 0")) 
+							LocalDate.parse(getString("date depart : ")) , Boolean.parseBoolean(getString("Est admin ?true ou false : ")) 
 							);
+						
 					} catch (Erreurdate e) {
 						// TODO Auto-generated catch block
 						System.out.println("Les dates ne sont pas coherente : La date de depart ne peut pas etre avant la date d'arriver ou elles ne peuvent pas etre null ");

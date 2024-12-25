@@ -110,7 +110,6 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	
 	
 	
-	
 
 	/**
 	 * Ajoute un employé dans la ligue. Cette méthode 
@@ -128,6 +127,7 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	
 		Employe employe = new Employe(this.gestionPersonnel, this, nom, prenom, mail, password , dateArv , Datedeb, admin);
 		employes.add(employe);
+		System.out.println(employe.getAdmin());
 		return employe;
 	}
 	

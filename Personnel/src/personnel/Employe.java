@@ -39,8 +39,8 @@ public class Employe implements Serializable, Comparable<Employe>
 
         this.dateArrive = dateArrive;
         this.dateDepart = dateDepart;
-        this.id = gestionPersonnel.insert(this);
         this.admin = admin;
+        this.id = gestionPersonnel.insert(this);
         
     }
     
