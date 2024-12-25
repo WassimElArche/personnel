@@ -140,10 +140,13 @@ public class Ligue implements Serializable, Comparable<Ligue>
 				return employe;
 			}
 	
-	void remove(Employe employe)
+	 void remove(Employe employe) throws SauvegardeImpossible
 	{
 		employes.remove(employe);
+		gestionPersonnel.delete(employe);
 	}
+	 
+	 
 	
 	/**
 	 * Supprime la ligue, entraîne la suppression de tous les employés

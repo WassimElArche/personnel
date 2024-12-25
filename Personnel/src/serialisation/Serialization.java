@@ -67,4 +67,8 @@ public class Serialization implements personnel.Passerelle
 		// TODO Auto-generated method stub
 		return -1;
 	}
+	
+	public void delete(Employe employe) {
+		
+	}
 }

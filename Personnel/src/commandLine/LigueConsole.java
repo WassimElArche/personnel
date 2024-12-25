@@ -166,14 +166,21 @@ public class LigueConsole
 	
 	private Option supprimerEmploye(Employe employe)
 	{
-		return new Option("Supprimer l'employer" , "s" , () -> suppEmployeRetour( employe));
+		return new Option("Supprimer l'employer" , "s" , () -> {
+			try {
+				suppEmployeRetour( employe);
+			} catch (SauvegardeImpossible e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
 			
 	}
 	
-	private void suppEmployeRetour(Employe employe) 
+	private void suppEmployeRetour(Employe employe) throws SauvegardeImpossible 
 	
 	{
-		employe.getLigue().getEmployes().remove(employe);
+		employe.remove();;
 	
 	}
 	
