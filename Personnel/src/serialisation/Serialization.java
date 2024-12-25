@@ -68,11 +68,15 @@ public class Serialization implements personnel.Passerelle
 		return -1;
 	}
 	
-	public void delete(Employe employe) {
+	public void delete(Employe employe) throws SauvegardeImpossible{
 		
 	}
 	
-	public void delete(Ligue ligue) {
+	public void delete(Ligue ligue) throws SauvegardeImpossible{
+		
+	}
+	
+	public void setAdmin(Employe employe) throws SauvegardeImpossible {
 		
 	}
 }

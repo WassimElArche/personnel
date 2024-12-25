@@ -298,6 +298,35 @@ public class JDBC implements Passerelle
 	
 	
 	
+	public void setAdmin(Employe employe) throws SauvegardeImpossible {
+	
+		
+	try 
+	{
+		
+		PreparedStatement instruction;
+		instruction = connection.prepareStatement( "update employe set Admin = false where id_employe = (?)", Statement.RETURN_GENERATED_KEYS);
+		instruction.setInt(1, employe.getLigue().getAdministrateur().getID());
+		System.out.println(employe.getLigue().getAdministrateur().getID());
+		instruction.executeUpdate();
+		
+		
+		PreparedStatement instruction1;
+		instruction1 = connection.prepareStatement( "update employe set Admin = true where id_employe = (?)", Statement.RETURN_GENERATED_KEYS);
+		instruction1.setInt(1, employe.getID());
+		instruction1.executeUpdate();
+		
+	} 
+	catch (SQLException exception) 
+	{
+		exception.printStackTrace();
+		throw new SauvegardeImpossible(exception);
+	}	
+	
+	}
+
+	
+	
 	public void delete(Employe employe) throws SauvegardeImpossible {
 		try 
 		{

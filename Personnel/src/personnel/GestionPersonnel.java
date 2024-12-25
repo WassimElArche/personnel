@@ -170,4 +170,9 @@ public class GestionPersonnel implements Serializable
 	public void delete(Ligue ligue) throws SauvegardeImpossible{
 		passerelle.delete(ligue);
 	}
+	
+	
+	public void setAdmin(Employe employe) throws SauvegardeImpossible {
+		passerelle.setAdmin(employe);
+	}
 }

@@ -153,13 +153,20 @@ public class LigueConsole
 		return menu;
 	}
 	
-	private void setAdmin(Employe employe ) {	
+	private void setAdmin(Employe employe ) throws SauvegardeImpossible {	
 		employe.getLigue().setAdministrateur(employe);
 		System.out.println("Administrateur bien modifié");
 	}
 	
 	private Option changerAdmin(Employe employe) {
-		return new Option("Le nommer administrateur" , "n" , () -> setAdmin(employe));
+		return new Option("Le nommer administrateur" , "n" , () -> {
+			try {
+				setAdmin(employe);
+			} catch (SauvegardeImpossible e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
 	}
 	
 	
