@@ -239,7 +239,7 @@ public class JDBC implements Passerelle
 	}
 	
 	
-	public int update(Ligue ligue)throws SauvegardeImpossible {
+	public void update(Ligue ligue)throws SauvegardeImpossible {
 		try 
 		{
 			PreparedStatement instruction;
@@ -247,10 +247,8 @@ public class JDBC implements Passerelle
 			instruction.setString(1, ligue.getNom());
 			instruction.setInt(2, ligue.getId());
 			instruction.executeUpdate();
-			ResultSet id = instruction.getGeneratedKeys();
-			if(id.next())
-			return id.getInt(1);
-			return 0;
+			
+		
 		} 
 		catch (SQLException exception) 
 		{
@@ -260,7 +258,7 @@ public class JDBC implements Passerelle
 	}
 	
 	
-	public int update(Employe employe) throws SauvegardeImpossible {
+	public void update(Employe employe) throws SauvegardeImpossible {
 		try 
 		{
 			String dateArv = null;
@@ -284,10 +282,7 @@ public class JDBC implements Passerelle
 			instruction.setInt(7, employe.getID());
 			instruction.executeUpdate();
 
-			ResultSet id = instruction.getGeneratedKeys();
-			if(id.next())
-			return id.getInt(1);
-			return 0;
+	
 		} 
 		catch (SQLException exception) 
 		{
