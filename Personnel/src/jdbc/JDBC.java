@@ -281,6 +281,19 @@ public class JDBC implements Passerelle
 			instruction.setString(6, dateDepart );
 			instruction.setInt(7, employe.getID());
 			instruction.executeUpdate();
+			
+			if(employe.estRoot() == false){
+				PreparedStatement instruction1;
+				instruction1 = connection.prepareStatement( "update employe set Admin = false where id_employe = (?)", Statement.RETURN_GENERATED_KEYS);
+				instruction1.setInt(1, employe.getLigue().getAdministrateur().getID());
+				
+				instruction1.executeUpdate();
+				
+				
+				PreparedStatement instruction2;
+				instruction2 = connection.prepareStatement( "update employe set Admin = true where id_employe = (?)", Statement.RETURN_GENERATED_KEYS);
+				instruction2.setInt(1, employe.getID());
+				instruction2.executeUpdate();}
 
 	
 		} 
@@ -292,34 +305,7 @@ public class JDBC implements Passerelle
 	}
 	
 	
-	
-	public void setAdmin(Employe employe) throws SauvegardeImpossible {
-	
-		
-	try 
-	{
-		
-		if(employe.estRoot() == false){
-		PreparedStatement instruction;
-		instruction = connection.prepareStatement( "update employe set Admin = false where id_employe = (?)", Statement.RETURN_GENERATED_KEYS);
-		instruction.setInt(1, employe.getLigue().getAdministrateur().getID());
-		
-		instruction.executeUpdate();
-		
-		
-		PreparedStatement instruction1;
-		instruction1 = connection.prepareStatement( "update employe set Admin = true where id_employe = (?)", Statement.RETURN_GENERATED_KEYS);
-		instruction1.setInt(1, employe.getID());
-		instruction1.executeUpdate();}
-		
-	} 
-	catch (SQLException exception) 
-	{
-		exception.printStackTrace();
-		throw new SauvegardeImpossible(exception);
-	}	
-	
-	}
+
 
 	
 	
