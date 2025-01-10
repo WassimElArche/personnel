@@ -188,7 +188,8 @@ public class LigueConsole
 	private void suppEmployeRetour(Employe employe) throws SauvegardeImpossible 
 	
 	{
-		employe.remove();;
+		
+		employe.remove();
 	
 	}
 	

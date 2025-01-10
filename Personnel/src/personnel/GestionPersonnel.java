@@ -173,6 +173,7 @@ public class GestionPersonnel implements Serializable
 	
 	
 	public void setAdmin(Employe employe) throws SauvegardeImpossible {
+
 		passerelle.setAdmin(employe);
 	}
 }
