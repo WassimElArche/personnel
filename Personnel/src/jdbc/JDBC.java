@@ -168,66 +168,7 @@ public class JDBC implements Passerelle
 			instruction.executeUpdate();
 			ResultSet id = instruction.getGeneratedKeys();
 			id.next();
-			
-			
 			return id.getInt(1);
-		
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			/*	Brouillon a Supprimer si au dessus marche 
-			 * 
-			 * PreparedStatement instruction1;
-			instruction1 = connection.prepareStatement("select * from employe where ID_Ligue is null");
-			ResultSet t = instruction1.executeQuery();			
-			boolean verifAdmin = employe.getLigue() == null && !t.next();
-			
-			PreparedStatement instruction;
-			instruction = connection.prepareStatement("insert into employe(prenomEmploye , nomEmploye , mail , passwd , datearv , datedepart , Admin , ID_Ligue) values(?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
-			
-			
-			if (verifAdmin) {
-			instruction.setString(2, employe.getNom());
-			instruction.setString(4, employe.getPassword());
-				for(int i = 1 ; i<=8 ; i++) {
-					if (i != 4 && i != 2) {
-						instruction.setString(i, null);	
-					}
-					
-				}
-				System.out.println("OK");
-			}
-			
-			else if(!verifAdmin && employe.getDateArrivee() != null)
-			{
-			instruction.setString(2, employe.getNom());
-			instruction.setString(4, employe.getPassword());
-			instruction.setString(3, employe.getMail());
-			instruction.setString(1, employe.getPrenom());
-			instruction.setString(5,employe.getDateArrivee().toString());
-			instruction.setString(6, employe.getDateDepart().toString());
-			instruction.setBoolean(7, employe.getAdmin());
-			instruction.setInt(8, employe.getLigue().getId());
-			}
-			
-			System.out.println("KOKO");
-			
-			instruction.executeUpdate();
-			ResultSet id = instruction.getGeneratedKeys();
-			id.next();
-			
-			
-			return id.getInt(1);*/
-			
 			
 		} 
 		catch (SQLException exception) 
@@ -272,28 +213,28 @@ public class JDBC implements Passerelle
 			
 			
 			PreparedStatement instruction;
-			instruction = connection.prepareStatement( "update employe set prenomEmploye = (?) , nomEmploye  = (?),  mail  = (?) ,passwd  = (?), datearv  = (?) ,datedepart  = (?) WHERE ID_Employe = (?)", Statement.RETURN_GENERATED_KEYS);
+			instruction = connection.prepareStatement( "update employe set prenomEmploye = (?) , nomEmploye  = (?),  mail  = (?) ,passwd  = (?), datearv  = (?) ,datedepart  = (?),  Admin = (?) WHERE ID_Employe = (?)", Statement.RETURN_GENERATED_KEYS);
 			instruction.setString(1, employe.getPrenom());
 			instruction.setString(2, employe.getNom());
 			instruction.setString(3, employe.getMail());
 			instruction.setString(4, employe.getPassword());
 			instruction.setString(5, dateArv);
 			instruction.setString(6, dateDepart );
-			instruction.setInt(7, employe.getID());
-			instruction.executeUpdate();
+			instruction.setBoolean(7, false);
+			instruction.setInt(8, employe.getID());
 			
-			if(employe.estRoot() == false){
+			System.out.println(employe.getLigue().getAdministrateur().getID() + "ET EMPLOYE : " + employe.getID());
+			if(employe.estRoot() == false && employe.getLigue().getAdministrateur().getID() == employe.getID())
+			{
 				PreparedStatement instruction1;
-				instruction1 = connection.prepareStatement( "update employe set Admin = false where id_employe = (?)", Statement.RETURN_GENERATED_KEYS);
-				instruction1.setInt(1, employe.getLigue().getAdministrateur().getID());
-				
+				instruction1 = connection.prepareStatement( "update employe set Admin = false where ID_Ligue = (?)", Statement.RETURN_GENERATED_KEYS);
+				instruction1.setInt(1, employe.getLigue().getId());
 				instruction1.executeUpdate();
 				
+				instruction.setBoolean(7, true);
 				
-				PreparedStatement instruction2;
-				instruction2 = connection.prepareStatement( "update employe set Admin = true where id_employe = (?)", Statement.RETURN_GENERATED_KEYS);
-				instruction2.setInt(1, employe.getID());
-				instruction2.executeUpdate();}
+				}
+			instruction.executeUpdate();
 
 	
 		} 

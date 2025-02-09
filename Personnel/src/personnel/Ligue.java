@@ -96,8 +96,9 @@ public class Ligue implements Serializable, Comparable<Ligue>
 		Employe root = gestionPersonnel.getRoot();
 		if (administrateur != root && administrateur.getLigue() != this)
 			throw new DroitsInsuffisants();
-		gestionPersonnel.setAdmin(administrateur);		
 		this.administrateur = administrateur;
+		gestionPersonnel.setAdmin(administrateur);		
+		
 		
 		
 	}
