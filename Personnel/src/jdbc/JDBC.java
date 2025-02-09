@@ -330,17 +330,10 @@ public class JDBC implements Passerelle
 		
 		try 
 		{
-			PreparedStatement instruction;
-			instruction = connection.prepareStatement( "delete from employe where id_ligue = (?)", Statement.RETURN_GENERATED_KEYS);
-			instruction.setInt(1, ligue.getId());
-			instruction.executeUpdate();
-			
 			PreparedStatement instruction1;
 			instruction1 = connection.prepareStatement( "delete from ligue where id_ligue = (?)", Statement.RETURN_GENERATED_KEYS);
 			instruction1.setInt(1, ligue.getId());
 			instruction1.executeUpdate();
-			
-			
 		} 
 		catch (SQLException exception) 
 		{
