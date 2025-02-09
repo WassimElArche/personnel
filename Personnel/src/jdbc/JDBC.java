@@ -223,7 +223,7 @@ public class JDBC implements Passerelle
 			instruction.setBoolean(7, false);
 			instruction.setInt(8, employe.getID());
 			
-			System.out.println(employe.getLigue().getAdministrateur().getID() + "ET EMPLOYE : " + employe.getID());
+			//System.out.println(employe.getLigue().getAdministrateur().getID() + "ET EMPLOYE : " + employe.getID());
 			if(employe.estRoot() == false && employe.getLigue().getAdministrateur().getID() == employe.getID())
 			{
 				PreparedStatement instruction1;
