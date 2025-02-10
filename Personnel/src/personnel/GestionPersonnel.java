@@ -49,7 +49,6 @@ public class GestionPersonnel implements Serializable
 		
 	 Employe employe = new Employe(this , nom  , password, id);
 	 this.root = employe;
-	 
 	}
 	
 	
@@ -168,9 +167,6 @@ public class GestionPersonnel implements Serializable
 	}
 	
 	public void delete(Ligue ligue) throws SauvegardeImpossible{
-		for(Employe employe : ligue.getEmployes()){
-			employe.remove();
-		}
 		passerelle.delete(ligue);
 	}
 	

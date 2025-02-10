@@ -96,10 +96,13 @@ public class Ligue implements Serializable, Comparable<Ligue>
 		Employe root = gestionPersonnel.getRoot();
 		if (administrateur != root && administrateur.getLigue() != this)
 			throw new DroitsInsuffisants();
+		if(administrateur.getLigue() != null) {
+			Employe ancienAdmin = administrateur.getLigue().getAdministrateur();
+			this.administrateur = administrateur;
+			gestionPersonnel.setAdmin(ancienAdmin);
+		}
 		this.administrateur = administrateur;
-		gestionPersonnel.setAdmin(administrateur);		
-		
-		
+		gestionPersonnel.setAdmin(administrateur);	
 		
 	}
 
@@ -163,8 +166,15 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	
 	public void remove() throws SauvegardeImpossible
 	{
-		gestionPersonnel.delete(this);
+		
+		for(Employe employe : this.getEmployes()){
+			employes.remove(employe);
+			employe.remove();
+		}
+		
 		gestionPersonnel.remove(this);
+		gestionPersonnel.delete(this);
+		
 		
 	}
 	

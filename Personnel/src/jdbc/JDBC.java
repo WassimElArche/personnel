@@ -142,7 +142,6 @@ public class JDBC implements Passerelle
 				sql = "insert into employe (ID_Employe, nomEmploye , passwd ) values(?,?,?)";
 			}
 			
-			//System.out.println(sql);
 			
 			
 			PreparedStatement instruction;
@@ -209,9 +208,7 @@ public class JDBC implements Passerelle
 				dateArv = employe.getDateArrivee().toString();
 				dateDepart = employe.getDateDepart().toString();
 				
-			}
-			
-			
+			}		
 			PreparedStatement instruction;
 			instruction = connection.prepareStatement( "update employe set prenomEmploye = (?) , nomEmploye  = (?),  mail  = (?) ,passwd  = (?), datearv  = (?) ,datedepart  = (?),  Admin = (?) WHERE ID_Employe = (?)", Statement.RETURN_GENERATED_KEYS);
 			instruction.setString(1, employe.getPrenom());
@@ -222,18 +219,11 @@ public class JDBC implements Passerelle
 			instruction.setString(6, dateDepart );
 			instruction.setBoolean(7, false);
 			instruction.setInt(8, employe.getID());
-			
-			//System.out.println(employe.getLigue().getAdministrateur().getID() + "ET EMPLOYE : " + employe.getID());
-			if(employe.estRoot() == false && employe.getLigue().getAdministrateur().getID() == employe.getID())
+	
+			if(employe.getLigue() != null && employe.getLigue().getAdministrateur() == employe)
 			{
-				PreparedStatement instruction1;
-				instruction1 = connection.prepareStatement( "update employe set Admin = false where ID_Ligue = (?)", Statement.RETURN_GENERATED_KEYS);
-				instruction1.setInt(1, employe.getLigue().getId());
-				instruction1.executeUpdate();
-				
 				instruction.setBoolean(7, true);
-				
-				}
+			}
 			instruction.executeUpdate();
 
 	
