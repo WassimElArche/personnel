@@ -22,8 +22,9 @@ public class Employe implements Serializable, Comparable<Employe>
     private boolean admin;
     private LocalDate dateArrive;
     private LocalDate dateDepart;
+    private String numeroSecuriteSociale;
 
-    Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrive, LocalDate dateDepart , boolean admin )
+    Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrive, LocalDate dateDepart, boolean admin, String numeroSecuriteSociale)
             throws Erreurdate, SauvegardeImpossible 
     {
         this.gestionPersonnel = gestionPersonnel;
@@ -32,6 +33,7 @@ public class Employe implements Serializable, Comparable<Employe>
         this.password = password;
         this.mail = mail;
         this.ligue = ligue;
+        this.numeroSecuriteSociale = numeroSecuriteSociale;
 
         if (dateArrive == null || dateDepart == null || dateDepart.isBefore(dateArrive) ) {
             throw new Erreurdate();
@@ -48,10 +50,11 @@ public class Employe implements Serializable, Comparable<Employe>
     
     
     // 
-    public Employe(GestionPersonnel gestion , String nom , String password) throws SauvegardeImpossible{
+    public Employe(GestionPersonnel gestion, String nom, String password) throws SauvegardeImpossible{
     	this.gestionPersonnel = gestion;
     	this.nom = nom;
     	this.password = password;
+        this.numeroSecuriteSociale = null;
     	this.id = gestion.insert(this);
     }
     
@@ -59,7 +62,7 @@ public class Employe implements Serializable, Comparable<Employe>
     
     
     //Pr la lecture d'un employé
-    Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrive, LocalDate dateDepart , boolean admin , int id ) throws Erreurdate, SauvegardeImpossible
+    Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrive, LocalDate dateDepart, boolean admin, int id, String numeroSecuriteSociale) throws Erreurdate, SauvegardeImpossible
 	{
     	 this.gestionPersonnel = gestionPersonnel;
          this.nom = nom;
@@ -67,6 +70,7 @@ public class Employe implements Serializable, Comparable<Employe>
          this.password = password;
          this.mail = mail;
          this.ligue = ligue;
+         this.numeroSecuriteSociale = numeroSecuriteSociale;
 
          if (dateArrive == null || dateDepart == null || dateDepart.isBefore(dateArrive) ) {
              throw new Erreurdate();
@@ -97,6 +101,7 @@ public class Employe implements Serializable, Comparable<Employe>
 		this.password = password;
 		this.id = id;
 		this.ligue = null;
+        this.numeroSecuriteSociale = null;
 		gestionPersonnel.insert(this);
 	}
 
@@ -248,14 +253,23 @@ public class Employe implements Serializable, Comparable<Employe>
         gestionPersonnel.update(this);
     }
 
+    public String getNumeroSecuriteSociale()
+    {
+        return this.numeroSecuriteSociale;
+    }
 
-    /**
-     * Retourne vrai ssi le password passé en paramètre est bien celui
-     * de l'employé.
-     * @return vrai ssi le password passé en paramètre est bien celui
-     * de l'employé.
-     * @param password le password auquel comparer celui de l'employé.
-     */
+    public void setNumeroSecuriteSociale(String numeroSecuriteSociale) 
+            throws SauvegardeImpossible
+    {
+        // Validation du format (15 chiffres)
+        if(numeroSecuriteSociale != null && !numeroSecuriteSociale.matches("^\\d{15}$")) {
+            throw new IllegalArgumentException("Format de numéro de sécurité sociale invalide");
+        }
+        this.numeroSecuriteSociale = numeroSecuriteSociale;
+        gestionPersonnel.update(this);
+    }
+
+
 
     public boolean checkPassword(String password)
     {
@@ -325,7 +339,10 @@ public class Employe implements Serializable, Comparable<Employe>
     @Override
     public String toString()
     {
-        String res = nom + " " + prenom + " " + mail + " (";
+        String res = nom + " " + prenom + " " + mail;
+        if (numeroSecuriteSociale != null && !numeroSecuriteSociale.isEmpty())
+            res += " (n° sécu: " + numeroSecuriteSociale + ")";
+        res += " (";
         if (estRoot())
             res += "super-utilisateur";
         else

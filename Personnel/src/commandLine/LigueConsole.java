@@ -102,7 +102,8 @@ public class LigueConsole
 						ligue.addEmploye(getString("nom : "), 
 							getString("prenom : "), getString("mail : "), 
 							getString("password : ") , LocalDate.parse(getString("date arrive : ")) , 
-							LocalDate.parse(getString("date depart : ")) , Boolean.parseBoolean(getString("Est admin ?true ou false : ")) 
+							LocalDate.parse(getString("date depart : ")) , Boolean.parseBoolean(getString("Est admin ?true ou false : ")),
+							getString("Numéro de sécurité sociale (15 chiffres) : ")
 							);
 						
 					} catch (Erreurdate e) {
@@ -113,6 +114,9 @@ public class LigueConsole
 						System.out.println("Veuillez fournir le bon format de date");			}
 					catch(SauvegardeImpossible e) {
 						System.out.println("Erreur de sauvegarde");
+					}
+					catch(IllegalArgumentException e) {
+						System.out.println(e.getMessage());
 					}
 				}
 				

@@ -14,6 +14,8 @@ import personnel.SauvegardeImpossible;
 
 public class EmployeConsole 
 {
+	private String numeroSecuriteSociale;
+
 	private Option afficher(final Employe employe)
 	{
 		return new Option("Afficher l'employé", "l", () -> {System.out.println(employe);});
@@ -34,6 +36,7 @@ public class EmployeConsole
 			menu.add(changerPassword(employe));
 			menu.add(changerDateArriver(employe));
 			menu.add(changerDateDepart(employe));
+			menu.add(changerNumeroSecuriteSociale(employe));
 			menu.addBack("q");
 		
 			return menu;
@@ -75,6 +78,19 @@ public class EmployeConsole
 				}
 		);}
 
+	private Option changerNumeroSecuriteSociale(final Employe employe)
+	{
+		return new Option("Changer le numéro de sécurité sociale", "s", () -> {
+			try {
+				String numero = getString("Nouveau numéro de sécurité sociale (15 chiffres) : ");
+				employe.setNumeroSecuriteSociale(numero);
+			} catch (IllegalArgumentException e) {
+				System.out.println(e.getMessage());
+			} catch (SauvegardeImpossible e) {
+				e.printStackTrace();
+			}
+		});
+	}
 	
 	//Veuillez saisir la date sous cette forme : AAAA-MM-JJ
 	private Option changerNom(final Employe employe)

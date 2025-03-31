@@ -22,8 +22,11 @@ public class GestionPersonnel implements Serializable
 	private static GestionPersonnel gestionPersonnel = null;
 	private SortedSet<Ligue> ligues;
 	private Employe root;
-	public final static int SERIALIZATION = 1, JDBC = 2, 
-			TYPE_PASSERELLE = JDBC;  
+	public final static int SERIALIZATION = 1, JDBC = 2;
+	
+	// Privilégier la sérialisation par défaut pour éviter les problèmes de connexion MySQL
+	public final static int TYPE_PASSERELLE = System.getProperty("PersistenceType", "SERIALIZATION").equals("SERIALIZATION") ? SERIALIZATION : JDBC;  
+	
 	private static Passerelle passerelle = TYPE_PASSERELLE == JDBC ? new jdbc.JDBC() : new serialisation.Serialization();	
 	
 	/**

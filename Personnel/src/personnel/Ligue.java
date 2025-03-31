@@ -129,24 +129,34 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	 * @return l'employé créé. 
 	 */
 
-	public Employe addEmploye(String nom, String prenom, String mail, String password , LocalDate dateArv , LocalDate Datedeb, boolean admin)
-	throws Erreurdate , SauvegardeImpossible
+	public Employe addEmploye(String nom, String prenom, String mail, String password, LocalDate dateArv, LocalDate Datedeb, boolean admin)
+	throws Erreurdate, SauvegardeImpossible
 	{
+		return addEmploye(nom, prenom, mail, password, dateArv, Datedeb, admin, null);
+	}
 	
-		Employe employe = new Employe(this.gestionPersonnel, this, nom, prenom, mail, password , dateArv , Datedeb, admin);
+	public Employe addEmploye(String nom, String prenom, String mail, String password, LocalDate dateArv, LocalDate Datedeb, boolean admin, String numeroSecuriteSociale)
+	throws Erreurdate, SauvegardeImpossible
+	{
+		Employe employe = new Employe(this.gestionPersonnel, this, nom, prenom, mail, password, dateArv, Datedeb, admin, numeroSecuriteSociale);
 		employes.add(employe);
 		System.out.println(employe.getAdmin());
 		return employe;
 	}
 	
-	public Employe addEmploye(String nom, String prenom, String mail, String password , LocalDate dateArv , LocalDate Datedeb, boolean admin , int id)
-			throws Erreurdate , SauvegardeImpossible
-			{
-			
-				Employe employe = new Employe(this.gestionPersonnel, this, nom, prenom, mail, password , dateArv , Datedeb, admin , id);
-				employes.add(employe);
-				return employe;
-			}
+	public Employe addEmploye(String nom, String prenom, String mail, String password, LocalDate dateArv, LocalDate Datedeb, boolean admin, int id)
+			throws Erreurdate, SauvegardeImpossible
+	{
+		return addEmploye(nom, prenom, mail, password, dateArv, Datedeb, admin, id, null);
+	}
+	
+	public Employe addEmploye(String nom, String prenom, String mail, String password, LocalDate dateArv, LocalDate Datedeb, boolean admin, int id, String numeroSecuriteSociale)
+			throws Erreurdate, SauvegardeImpossible
+	{
+		Employe employe = new Employe(this.gestionPersonnel, this, nom, prenom, mail, password, dateArv, Datedeb, admin, id, numeroSecuriteSociale);
+		employes.add(employe);
+		return employe;
+	}
 	
 	
 	
