@@ -87,10 +87,6 @@ public class JDBC implements Passerelle
 			
 		}
 		
-		
-		
-		
-		
 		catch (SQLException e)
 		{
 			System.out.println(e);

@@ -3,6 +3,7 @@ package personnel;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -168,9 +169,12 @@ public class GestionPersonnel implements Serializable
 	}
 	
 	public void delete(Ligue ligue) throws SauvegardeImpossible{
-		for(Employe employe : ligue.getEmployes()){
-			employe.remove();
-		}
+		
+		Iterator<Employe> iterator = ligue.getEmployes().iterator();
+		while (iterator.hasNext()) {
+		    Employe employe = iterator.next();
+		    employe.remove();
+		   }
 		passerelle.delete(ligue);
 	}
 	
